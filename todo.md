@@ -8,10 +8,29 @@
 - [x] Identify and prevent the mobile menu interaction that sends the page to the bottom instead of completing intended navigation.
 - [x] Reposition or hide the mobile floating help control so it does not overlap the Manus UI or obscure its arrow.
 - [x] Verify mobile navigation and viewport controls, then save and deliver the repair checkpoint.
-- [ ] Synchronize the shared project's latest code into the running preview and report the synced version.
-- [ ] Compare all required pages, navigation, semantic structure, and SEO files against the renewed AdSense information-site brief.
-- [ ] Remove any remaining platform-specific or unfinished visual elements and prepare a Cloudflare Pages Direct Upload package.
-- [ ] Build and verify the production package, robots, sitemap, metadata, mobile layout, and live links before delivery.
+- [x] Synchronize the shared project's latest code into the running preview and report the synced version.
+- [x] Compare all required pages, navigation, semantic structure, and SEO files against the renewed AdSense information-site brief.
+- [x] Remove any remaining platform-specific or unfinished visual elements and prepare a Cloudflare Pages Direct Upload package.
+- [x] Build and verify the production package, robots, sitemap, metadata, mobile layout, and live links before delivery.
+- [x] Add a Cloudflare Pages SPA fallback and a domain-configurable robots.txt and sitemap.xml generation step.
+- [x] Create a clear Direct Upload handoff guide covering the build output, custom-domain replacement, Search Console, and AdSense code placement.
+- [x] Build the deployable static output, inspect the generated crawler files, and package the Direct Upload folder for handoff.
+- [x] Audit every required route for semantic headings, breadcrumb presence, canonical and per-page metadata/OG handling, plus Search Console and AdSense insertion readiness.
+- [x] Inspect the final Cloudflare build HTML and ZIP contents to confirm all Manus-specific scripts/assets and unfinished placeholders are absent.
+- [x] Verify all primary pages, all article routes, policy pages, and production crawler assets, then document the final handoff results.
+- [x] Move every editorial image reference to persistent project web-asset paths before packaging the static deployment output.
+- [x] Review every public page for Korean spelling, spacing, wording consistency, and visible copy errors.
+- [x] Rebalance desktop and mobile heading, body, navigation, card, metadata, and footer type sizes for comfortable 40~60대 reading.
+- [x] Audit and document Korean copy on Home, Search, Category, Article, About, Contact, Privacy, Disclaimer, and 404 routes; apply any remaining wording or spacing fixes.
+- [x] Rebuild after the final copy corrections and verify navigation, headings, body text, cards, metadata, and footer at both desktop and mobile widths.
+- [x] Verify corrected copy and type scale across all representative pages, then save the final readability checkpoint.
+- [x] Turn the mobile hamburger icon into a full-screen navigation panel with all categories, search access, and key information-page links.
+- [x] Verify the expanded mobile menu opens, closes, navigates, and remains readable without forcing long-page scrolling.
+- [x] Add dedicated 404 metadata and verify every public route’s semantic headings, breadcrumbs, canonical URL, title, description, and Open Graph handling.
+- [x] Verify all five article routes, all required information pages, search, 404, robots.txt, sitemap.xml, and the final production ZIP; record the results.
+- [x] Complete a documented Korean copy check for Home, Search, Category, Article, About, Contact, Privacy, Disclaimer, and 404.
+- [x] Interactively test the expanded mobile menu for open, close, link navigation, search submission, scroll locking, and readable opened-panel layout.
+- [x] Save a checkpoint after final copy, typography, navigation, and QA verification.
 - [x] Replace the promotional home hero with a concise archive header and prominent integrated search.
 - [x] Present all five categories as a clean portal grid and expose real starter articles in a dense latest-information card list.
 - [x] Verify the redesigned homepage at desktop and mobile widths, then save and deliver the updated checkpoint.

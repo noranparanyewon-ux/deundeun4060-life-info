@@ -40,7 +40,7 @@ export const categories: Category[] = [
     slug: "pension",
     label: "연금·노후준비",
     eyebrow: "생활 표지 02",
-    description: "국민연금과 노후생활을 이해하기 쉽게 풀어보고, 준비 순서를 안내합니다.",
+    description: "국민연금과 노후 생활을 이해하기 쉽게 풀어보고, 준비 순서를 안내합니다.",
     accent: "#B7791F",
   },
   {
@@ -74,7 +74,7 @@ export const articles: Article[] = [
     excerpt: "검색창에 바로 뛰어들기보다, 내 상황과 필요한 시기를 먼저 적어두면 지원 제도를 확인하는 순서가 달라집니다.",
     readingTime: "6분 읽기",
     updated: "2026. 08. 26.",
-    image: "/manus-storage/deundeun4060-hero_640c5466.png",
+    image: "/manus-storage/deundeun4060-hero_a6a96565.png",
     featured: true,
     intro: "정부지원 제도는 이름이 비슷하고 조건도 자주 달라서, 막연하게 ‘받을 수 있는 지원금’을 검색하면 오히려 중요한 기준을 놓치기 쉽습니다. 먼저 내 상황을 짧게 정리한 뒤 공식 안내에서 조건을 대조하는 방식이 안전합니다.",
     sections: [
@@ -118,7 +118,7 @@ export const articles: Article[] = [
     excerpt: "새 기기를 샀을 때 사진과 연락처를 옮기는 것만큼 중요한 것은 잠금, 업데이트, 계정 복구 방법을 확인하는 일입니다.",
     readingTime: "5분 읽기",
     updated: "2026. 08. 24.",
-    image: "/manus-storage/deundeun4060-digital-editorial_e8c7f5da.jpg",
+    image: "/manus-storage/deundeun4060-digital-editorial_2021d8c0.jpg",
     intro: "스마트폰을 새로 바꾸면 화면과 앱이 익숙하지 않아 보안 설정을 나중으로 미루기 쉽습니다. 하지만 처음 한 번만 확인해 두면 분실이나 계정 문제에 대응하기가 훨씬 수월해집니다.",
     sections: [
       {
@@ -153,7 +153,7 @@ export const articles: Article[] = [
     excerpt: "검진 항목만 고르는 것보다, 최근의 변화와 복용 중인 약을 먼저 정리하면 상담 시간이 더 알차집니다.",
     readingTime: "4분 읽기",
     updated: "2026. 08. 21.",
-    image: "/manus-storage/deundeun4060-health-editorial_0384b5c9.jpg",
+    image: "/manus-storage/deundeun4060-health-editorial_80d63336.jpg",
     intro: "건강검진을 예약할 때는 검사 날짜만 정하면 끝이라고 생각하기 쉽습니다. 최근 몸의 변화와 궁금한 점을 짧게 기록해 두면 검진 전후에 의료진에게 전달할 내용을 놓치지 않는 데 도움이 됩니다.",
     sections: [
       {
@@ -187,7 +187,7 @@ export const articles: Article[] = [
     excerpt: "절약을 시작할 때 가장 먼저 할 일은 무조건 줄이는 것이 아니라, 매달 자동으로 빠져나가는 금액을 확인하는 것입니다.",
     readingTime: "5분 읽기",
     updated: "2026. 08. 18.",
-    image: "/manus-storage/deundeun4060-saving-editorial_9a4e39a9.jpg",
+    image: "/manus-storage/deundeun4060-saving-editorial_d0d673d0.jpg",
     intro: "생활비 절약은 의지만으로 오래 이어지기 어렵습니다. 한 달 동안 자동으로 빠져나가는 돈과 사용량에 따라 달라지는 돈을 분리하면, 줄일 수 있는 항목과 유지해야 하는 항목이 보이기 시작합니다.",
     sections: [
       {
@@ -217,7 +217,7 @@ export const articles: Article[] = [
     excerpt: "복잡한 계산보다 현재 생활비와 앞으로의 우선순위를 먼저 이야기하면 준비해야 할 정보가 정리됩니다.",
     readingTime: "5분 읽기",
     updated: "2026. 08. 15.",
-    image: "/manus-storage/deundeun4060-pension-editorial_cd5e2a7b.jpg",
+    image: "/manus-storage/deundeun4060-pension-editorial_a026a98e.jpg",
     intro: "연금은 숫자만 확인한다고 준비가 끝나는 주제가 아닙니다. 언제 일을 줄이고 싶은지, 어떤 지출을 유지하고 싶은지, 가족과 어떤 도움을 주고받을지부터 정리해야 계산 결과를 생활 계획에 연결할 수 있습니다.",
     sections: [
       {

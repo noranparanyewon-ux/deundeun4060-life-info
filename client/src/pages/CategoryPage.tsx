@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { ArrowRight, Clock3, FileText, MoveUpRight } from "lucide-react";
 import { Link, useRoute } from "wouter";
 import { articles, categories, getArticlesByCategory, getCategory } from "../lib/siteData";
+import { SEO } from "../App";
 
 export default function CategoryPage() {
   const [, params] = useRoute<{ slug: string }>("/category/:slug");
@@ -15,6 +16,7 @@ export default function CategoryPage() {
 
   return (
     <>
+      <SEO title={`${category.label} | 든든한 4060 생활정보`} description={category.description} />
       <section className="archive-hero" style={{ "--archive-accent": category.accent } as CSSProperties}>
         <div className="container archive-hero__inner"><div className="archive-hero__copy"><span className="eyebrow"><span className="eyebrow-line" /> {category.eyebrow}</span><span className="archive-hero__status">업데이트 기준 확인 · 공식 안내 우선</span><h1>{category.label}</h1><p>{category.description}</p></div><div className="archive-hero__index"><span>현재 서랍</span><strong>{String(categories.findIndex((item) => item.slug === category.slug) + 1).padStart(2, "0")}</strong><span>/ 05</span></div></div>
       </section>

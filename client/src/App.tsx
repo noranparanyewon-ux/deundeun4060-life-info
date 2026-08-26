@@ -1,7 +1,7 @@
 /* 생활 문서 아카이브 / 아이보리 종이 / 잉크 네이비 / 든든한 청록 / 편집 지면형 비대칭 레이아웃 */
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Link, Route, Switch, useLocation } from "wouter";
-import { Menu, Search, X } from "lucide-react";
+import { ChevronRight, Menu, Search, X } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -20,6 +20,7 @@ const pageMeta: Record<string, { title: string; description: string }> = {
   "/contact": { title: `문의 | ${siteName}`, description: "든든한 4060 생활정보에 의견과 정정 요청을 보내는 방법을 안내합니다." },
   "/privacy": { title: `개인정보처리방침 | ${siteName}`, description: "든든한 4060 생활정보의 개인정보 처리 원칙을 안내합니다." },
   "/disclaimer": { title: `면책 안내 | ${siteName}`, description: "정보 이용 전 확인해야 할 범위와 주의사항을 안내합니다." },
+  "/404": { title: `페이지를 찾을 수 없음 | ${siteName}`, description: "요청한 주소를 찾을 수 없습니다. 든든한 4060 생활정보의 홈과 주제별 글을 확인해 보세요." },
 };
 
 export function SEO({ title, description }: { title?: string; description?: string }) {
@@ -100,18 +101,31 @@ function Header() {
 
   const closeMenu = () => setMenuOpen(false);
 
+  useEffect(() => {
+    document.body.classList.toggle("mobile-menu-open", menuOpen);
+    return () => document.body.classList.remove("mobile-menu-open");
+  }, [menuOpen]);
+
   return (
     <header className="site-header">
       <div className="header-inner">
         <SiteMark />
         <nav className={`main-nav ${menuOpen ? "main-nav--open" : ""}`} aria-label="주요 메뉴">
-          <Link href="/" onClick={closeMenu} className={location === "/" ? "is-active" : ""}>홈</Link>
-          <Link href="/category/welfare" onClick={closeMenu} className={location === "/category/welfare" ? "is-active" : ""}>복지</Link>
-          <Link href="/category/pension" onClick={closeMenu} className={location === "/category/pension" ? "is-active" : ""}>연금</Link>
-          <Link href="/category/health" onClick={closeMenu} className={location === "/category/health" ? "is-active" : ""}>건강</Link>
-          <Link href="/category/saving" onClick={closeMenu} className={location === "/category/saving" ? "is-active" : ""}>생활비</Link>
-          <Link href="/category/digital" onClick={closeMenu} className={location === "/category/digital" ? "is-active" : ""}>디지털</Link>
-          <Link href="/about" onClick={closeMenu} className={location === "/about" ? "is-active" : ""}>사이트 소개</Link>
+          <div className="main-nav__primary">
+            <Link href="/" onClick={closeMenu} className={location === "/" ? "is-active" : ""}>홈</Link>
+            <Link href="/category/welfare" onClick={closeMenu} className={location === "/category/welfare" ? "is-active" : ""}>복지</Link>
+            <Link href="/category/pension" onClick={closeMenu} className={location === "/category/pension" ? "is-active" : ""}>연금</Link>
+            <Link href="/category/health" onClick={closeMenu} className={location === "/category/health" ? "is-active" : ""}>건강</Link>
+            <Link href="/category/saving" onClick={closeMenu} className={location === "/category/saving" ? "is-active" : ""}>생활비</Link>
+            <Link href="/category/digital" onClick={closeMenu} className={location === "/category/digital" ? "is-active" : ""}>디지털</Link>
+            <Link href="/about" onClick={closeMenu} className={location === "/about" ? "is-active" : ""}>사이트 소개</Link>
+          </div>
+          <div className="mobile-menu-panel">
+            <div className="mobile-menu-panel__intro"><span>QUICK MENU</span><strong>필요한 정보를<br />바로 찾아보세요.</strong></div>
+            <form className="mobile-menu-search" onSubmit={onSearch} role="search"><Search size={19} aria-hidden="true" /><input aria-label="메뉴에서 사이트 글 검색" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="예: 연금, 건강검진, 스마트폰" /><button type="submit">찾기</button></form>
+            <div className="mobile-menu-group"><span>주제별 정보</span><Link href="/" onClick={closeMenu}><i>00</i>홈 <ChevronRight size={17} /></Link><Link href="/category/welfare" onClick={closeMenu}><i>01</i>정부지원·복지 <ChevronRight size={17} /></Link><Link href="/category/pension" onClick={closeMenu}><i>02</i>연금·노후준비 <ChevronRight size={17} /></Link><Link href="/category/health" onClick={closeMenu}><i>03</i>건강생활 <ChevronRight size={17} /></Link><Link href="/category/saving" onClick={closeMenu}><i>04</i>생활비 절약 <ChevronRight size={17} /></Link><Link href="/category/digital" onClick={closeMenu}><i>05</i>스마트폰·디지털 활용 <ChevronRight size={17} /></Link></div>
+            <div className="mobile-menu-group mobile-menu-group--guide"><span>사이트 안내</span><Link href="/about" onClick={closeMenu}>우리가 정리하는 기준 <ChevronRight size={17} /></Link><Link href="/contact" onClick={closeMenu}>문의와 정정 요청 <ChevronRight size={17} /></Link><Link href="/privacy" onClick={closeMenu}>개인정보처리방침 <ChevronRight size={17} /></Link><Link href="/disclaimer" onClick={closeMenu}>이용안내 및 면책조항 <ChevronRight size={17} /></Link></div>
+          </div>
         </nav>
         <div className="header-actions">
           <form className="header-search" onSubmit={onSearch} role="search">
@@ -151,7 +165,7 @@ function Footer() {
       </div>
       <div className="footer-bottom container">
         <span>© 2026 든든한 4060 생활정보</span>
-        <span>기본 주소에서 먼저 운영 중입니다.</span>
+        <span>기본 웹 주소에서 먼저 운영하고 있습니다.</span>
       </div>
     </footer>
   );

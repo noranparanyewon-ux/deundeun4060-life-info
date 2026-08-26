@@ -203,9 +203,13 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
+export default defineConfig(({ command }) => {
+  const plugins: Plugin[] = [react(), tailwindcss(), jsxLocPlugin()];
+  if (command === "serve") {
+    plugins.push(vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy());
+  }
 
-export default defineConfig({
+  return {
   plugins,
   resolve: {
     alias: {
@@ -238,4 +242,5 @@ export default defineConfig({
       deny: ["**/.*"],
     },
   },
+  };
 });
