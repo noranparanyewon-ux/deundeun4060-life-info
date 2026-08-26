@@ -84,9 +84,10 @@
 - [x] Map a topic-appropriate image path and Korean alternative text to every public article through the public-content pipeline.
 - [x] Apply the images consistently to the home feature slider, latest cards, category lists, article headers, and related cards while keeping visual fallbacks.
 - [x] Extend regression tests for public image coverage, base-path-safe references, and the absence of `/manus-storage/` URLs.
-- [ ] Verify desktop and mobile rendering, static build assets, GitHub Pages deployment, and public cache-busted routes after the image release.
+- [x] Verify desktop and mobile rendering, static build assets, GitHub Pages deployment, and public cache-busted routes after the image release.
 - [x] Add an explicit regression check that public image URLs use the GitHub Pages repository base path while excluding `/manus-storage/` paths.
 - [x] Inspect the GitHub Pages production build output for repository-prefixed editorial image URLs before release.
 - [x] Confirm a production bundle check resolves editorial image URLs under `/deundeun4060-life-info/editorial/`.
-- [ ] After the image release, verify cache-busted public GitHub Pages home, category, and article routes load the new illustrations.
+- [x] After the image release, verify cache-busted public GitHub Pages home, category, and article routes load the new illustrations.
+- [x] Confirm loaded image dimensions on the cache-busted public home and category routes, then record all three live-route checks in the QA log.
 - [x] Update image regression assertions so they accept the configured GitHub Pages base path, then rerun the failed deployment workflow.
