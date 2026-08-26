@@ -46,6 +46,50 @@ try {
   await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 1, mobile: true });
   await navigate(previewUrl);
 
+  const initialSlider = await evaluate(`(() => ({ count: document.querySelectorAll('.featured-slider__dots button').length, position: document.querySelector('.featured-slider__controls span')?.textContent, title: document.querySelector('.webzine-cover h1')?.textContent }))()`);
+  if (initialSlider.count !== 5 || initialSlider.position !== "1 / 5" || !initialSlider.title) throw new Error("Featured slider did not render all published feature stories.");
+
+  await evaluate(`document.querySelector('button[aria-label="다음 특집 기사"]')?.click()`);
+  await sleep(150);
+  const buttonSlide = await evaluate(`document.querySelector('.featured-slider__controls span')?.textContent`);
+  if (buttonSlide !== "2 / 5") throw new Error("Featured slider next control failed.");
+
+  await evaluate(`(() => { const slider = document.querySelector('.featured-slider'); slider?.focus(); slider?.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true })); })()`);
+  await sleep(150);
+  const keyboardSlide = await evaluate(`document.querySelector('.featured-slider__controls span')?.textContent`);
+  if (keyboardSlide !== "3 / 5") throw new Error("Featured slider keyboard navigation failed.");
+
+  const sliderPoint = await evaluate(`(() => { const rect = document.querySelector('.featured-slider')?.getBoundingClientRect(); return rect ? { x: Math.round(rect.right - 34), y: Math.round(rect.top + 130) } : null; })()`);
+  if (!sliderPoint) throw new Error("Featured slider was not available for touch testing.");
+  await send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: sliderPoint.x, y: sliderPoint.y, id: 1 }] });
+  await send("Input.dispatchTouchEvent", { type: "touchMove", touchPoints: [{ x: sliderPoint.x - 130, y: sliderPoint.y, id: 1 }] });
+  await send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  await sleep(180);
+  const touchSlide = await evaluate(`document.querySelector('.featured-slider__controls span')?.textContent`);
+  if (touchSlide !== "4 / 5") throw new Error("Featured slider touch swipe failed.");
+
+  await evaluate(`document.querySelector('button[aria-label="다음 특집 기사"]')?.click()`);
+  await sleep(120);
+  const fifthSlide = await evaluate(`document.querySelector('.featured-slider__controls span')?.textContent`);
+  if (fifthSlide !== "5 / 5") throw new Error("Featured slider did not reach the fifth feature story.");
+
+  await evaluate(`document.querySelector('button[aria-label="다음 특집 기사"]')?.click()`);
+  await sleep(120);
+  const wrappedSlide = await evaluate(`document.querySelector('.featured-slider__controls span')?.textContent`);
+  if (wrappedSlide !== "1 / 5") throw new Error("Featured slider did not wrap after the fifth story.");
+
+  await evaluate(`document.querySelector('button[aria-label="이전 특집 기사"]')?.click()`);
+  await sleep(120);
+  const previousSlide = await evaluate(`document.querySelector('.featured-slider__controls span')?.textContent`);
+  if (previousSlide !== "5 / 5") throw new Error("Featured slider previous control failed.");
+
+  for (let index = 0; index < 5; index += 1) {
+    await evaluate(`document.querySelectorAll('.featured-slider__dots button')[${index}]?.click()`);
+    await sleep(100);
+    const indicatorState = await evaluate(`(() => ({ position: document.querySelector('.featured-slider__controls span')?.textContent, active: [...document.querySelectorAll('.featured-slider__dots button')].findIndex((button) => button.classList.contains('is-active')) }))()`);
+    if (indicatorState.position !== `${index + 1} / 5` || indicatorState.active !== index) throw new Error(`Featured slider indicator ${index + 1} failed.`);
+  }
+
   const initial = await evaluate(`(() => {
     const button = document.querySelector('.menu-toggle');
     return { visible: !!button && getComputedStyle(button).display !== 'none', label: button?.getAttribute('aria-label') };
@@ -86,7 +130,7 @@ try {
   const searchNavigation = await evaluate(`({ path: location.pathname, query: new URLSearchParams(location.search).get('q'), open: document.querySelector('.main-nav')?.classList.contains('main-nav--open') })`);
   if (searchNavigation.path !== "/search" || searchNavigation.query !== "연금" || searchNavigation.open) throw new Error("Search submission from the mobile menu failed.");
 
-  console.log("Mobile menu interaction test passed: open, close, scroll lock, category navigation, and search submission.");
+  console.log("Feature slider and mobile menu interaction test passed: touch, buttons, keyboard, all indicators, wraparound, open/close, scroll lock, category navigation, and search submission.");
 } finally {
   socket.close();
 }

@@ -31,4 +31,15 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
     expect(styleSource).toContain(".main-nav--open { opacity: 1; pointer-events: auto;");
     expect(appSource).not.toContain('href="#"');
   });
+
+  it("ships a five-story feature slider with button, keyboard, and touch paths", () => {
+    const homeSource = readFileSync(new URL("../pages/Home.tsx", import.meta.url), "utf8");
+    expect(homeSource).toContain("const featureStories = [featured, pension, health, saving, digital]");
+    expect(homeSource).toContain('aria-roledescription="carousel"');
+    expect(homeSource).toContain('onTouchStart=');
+    expect(homeSource).toContain('event.key === "ArrowLeft"');
+    expect(homeSource).toContain('event.key === "ArrowRight"');
+    expect(homeSource).toContain('aria-label="이전 특집 기사"');
+    expect(homeSource).toContain('aria-label="다음 특집 기사"');
+  });
 });

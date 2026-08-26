@@ -41,3 +41,13 @@
 - [x] Refine the global header, editorial serif/sans typography, borders, spacing, and responsive grid while retaining working navigation.
 - [x] Remove site-owned floating or placeholder controls and verify that no broken links or unfinished visible elements remain.
 - [x] Validate desktop and mobile Editorial Webzine routes, build the project, and save the finished redesign checkpoint.
+- [x] Replace the static monthly featured-story cover with a multi-article slider using real published article data.
+- [x] Support touch swipe, previous/next controls, keyboard arrows, visible slide position, and accessible slide announcements.
+- [x] Verify the feature slider on desktop and mobile, add interaction tests, and save the updated checkpoint.
+- [x] Verify actual touch swipe, previous/next controls, keyboard arrow keys, and indicator updates across all five feature stories.
+- [x] Reduce the mobile featured-card image height and headline scale so more home content is visible in the first screen.
+- [x] Add a compact latest-articles strip directly after the feature slider with real article thumbnails, titles, and category tags.
+- [x] Reduce unnecessary mobile bottom spacing and remove any site-owned floating controls; verify whether platform-owned badges remain outside site-code control.
+- [x] Verify the compact mobile homepage, slider, recent-article list, and responsive spacing before delivery.
+- [x] Verify previous control, every indicator button, five-story traversal, and wraparound behavior in the feature slider; record the result.
+- [x] Save a new checkpoint after the completed slider, latest-article, and compact-mobile-home changes.

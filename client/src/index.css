@@ -856,3 +856,50 @@ body { line-height: 1.65; }
   .magazine-card__body p { font-size: 13px; line-height: 1.75; }
   .magazine-card__foot { font-size: 12px; }
 }
+
+/* Featured carousel and compact recent-article strip. */
+.featured-slider { position: relative; }
+.featured-slider:focus-visible { outline: 3px solid rgba(15,118,110,.38); outline-offset: 5px; }
+.featured-slider__controls { position: absolute; right: 20px; bottom: 19px; z-index: 3; display: flex; align-items: center; gap: 6px; color: var(--ink); background: rgba(255,253,248,.9); border: 1px solid var(--line); font-size: 12px; font-weight: 800; }
+.featured-slider__controls button { display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 32px; color: var(--ink); background: transparent; cursor: pointer; transition: color 160ms var(--ease-out), background 160ms var(--ease-out); }
+.featured-slider__controls button:hover { color: var(--white); background: var(--teal); }
+.featured-slider__controls span { min-width: 34px; text-align: center; }
+.featured-slider__dots { display: flex; gap: 7px; margin-top: 14px; }
+.featured-slider__dots button { width: 32px; height: 3px; padding: 0; background: var(--line); cursor: pointer; transition: background 160ms var(--ease-out), width 160ms var(--ease-out); }
+.featured-slider__dots button.is-active { width: 55px; background: var(--teal); }
+.home-recent { padding-bottom: 48px; }
+.home-recent__head { display: flex; align-items: end; justify-content: space-between; gap: 20px; padding: 19px 0 14px; border-bottom: 2px solid var(--ink); }
+.home-recent__head > div > span { display: block; color: var(--teal); font-size: 10px; font-weight: 800; letter-spacing: .1em; }
+.home-recent__head h2 { margin: 5px 0 0; font-family: "Noto Serif KR", serif; font-size: 27px; font-weight: 600; letter-spacing: -.08em; }
+.home-recent__head > a { display: inline-flex; align-items: center; gap: 5px; color: var(--teal); font-size: 12px; font-weight: 800; white-space: nowrap; }
+.home-recent__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 13px; padding-top: 16px; }
+.home-recent-card { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 10px; align-items: start; min-width: 0; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.home-recent-card img { width: 84px; height: 65px; object-fit: cover; }
+.home-recent-card .category-label { font-size: 9px; }
+.home-recent-card h3 { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; margin: 5px 0 0; font-family: "Noto Serif KR", serif; font-size: 15px; font-weight: 600; line-height: 1.46; letter-spacing: -.06em; }
+
+@media (max-width: 720px) {
+  .webzine-feature { padding-top: 18px; padding-bottom: 18px; }
+  .webzine-feature__label { padding-bottom: 9px; }
+  .webzine-cover__image { min-height: 148px; }
+  .webzine-cover__copy { min-height: 198px; padding: 18px 18px 16px; }
+  .webzine-cover__copy h1 { margin: 8px 0 7px; font-size: 26px; line-height: 1.3; }
+  .webzine-cover__copy > p { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; font-size: 13px; line-height: 1.6; }
+  .webzine-cover__status { margin-top: 6px; font-size: 10px; }
+  .webzine-cover__issue { font-size: 42px; }
+  .webzine-cover__file-label { font-size: 8px; }
+  .webzine-cover__foot { margin-top: 12px; padding-top: 11px; font-size: 10px; }
+  .featured-slider__controls { right: 12px; bottom: 12px; }
+  .featured-slider__controls button { width: 32px; height: 30px; }
+  .featured-slider__dots { justify-content: center; margin-top: 10px; }
+  .featured-slider__dots button { width: 25px; }
+  .featured-slider__dots button.is-active { width: 40px; }
+  .home-recent { padding-bottom: 24px; }
+  .home-recent__head { padding-top: 7px; padding-bottom: 10px; }
+  .home-recent__head h2 { font-size: 23px; }
+  .home-recent__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; padding-top: 10px; }
+  .home-recent-card { grid-template-columns: 1fr; gap: 7px; padding: 6px 0 10px; }
+  .home-recent-card img { width: 100%; height: 82px; }
+  .home-recent-card .category-label { font-size: 9px; }
+  .home-recent-card h3 { margin-top: 3px; font-size: 15px; line-height: 1.42; }
+}

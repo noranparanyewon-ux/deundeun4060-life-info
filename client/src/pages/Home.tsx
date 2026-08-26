@@ -1,6 +1,6 @@
 /* Editorial Life Webzine / 크림 지면 / 세리프 헤드라인 / 코너형 매거진 그리드 */
-import type { CSSProperties } from "react";
-import { ArrowRight, Clock3, Compass, FileText, Sparkles } from "lucide-react";
+import { useRef, useState, type CSSProperties } from "react";
+import { ArrowRight, ChevronLeft, ChevronRight, Clock3, Compass, FileText, Sparkles } from "lucide-react";
 import { Link } from "wouter";
 import { articles, getCategory } from "../lib/siteData";
 
@@ -10,6 +10,7 @@ const pension = articles.find((article) => article.category === "pension") ?? fe
 const health = articles.find((article) => article.category === "health") ?? featured;
 const saving = articles.find((article) => article.category === "saving") ?? featured;
 const digital = articles.find((article) => article.category === "digital") ?? featured;
+const featureStories = [featured, pension, health, saving, digital];
 
 function CategoryLabel({ slug }: { slug: string }) {
   const category = getCategory(slug);
@@ -34,6 +35,35 @@ function CornerHead({ issue, title, description, href }: { issue: string; title:
   return <div className="webzine-corner-head"><div><span>{issue}</span><h2>{title}</h2><p>{description}</p></div><Link href={href} aria-label={`${title} 전체 보기`}><ArrowRight size={19} /></Link></div>;
 }
 
+function FeaturedStorySlider() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const swipeStartX = useRef<number | null>(null);
+  const activeStory = featureStories[activeIndex];
+  const moveTo = (index: number) => setActiveIndex((index + featureStories.length) % featureStories.length);
+  const onSwipeEnd = (clientX: number) => {
+    if (swipeStartX.current === null) return;
+    const distance = clientX - swipeStartX.current;
+    if (Math.abs(distance) > 45) moveTo(activeIndex + (distance < 0 ? 1 : -1));
+    swipeStartX.current = null;
+  };
+
+  return <section className="webzine-feature container" aria-labelledby="feature-title">
+    <div className="webzine-feature__label"><span>이달의 든든한 특집 스토리</span><span>FEATURE {String(activeIndex + 1).padStart(2, "0")}</span></div>
+    <div className="featured-slider" role="region" aria-roledescription="carousel" aria-label="이달의 든든한 특집 스토리" tabIndex={0} onKeyDown={(event) => { if (event.key === "ArrowLeft") moveTo(activeIndex - 1); if (event.key === "ArrowRight") moveTo(activeIndex + 1); }} onTouchStart={(event) => { swipeStartX.current = event.touches[0]?.clientX ?? null; }} onTouchEnd={(event) => onSwipeEnd(event.changedTouches[0]?.clientX ?? 0)}>
+      <Link href={`/article/${activeStory.slug}`} className="webzine-cover" aria-label={`${activeStory.title} 읽기`}>
+        <div className="webzine-cover__image"><img src={activeStory.image} alt="생활 정보 글을 상징하는 편집 사진" /><span className="webzine-cover__issue">{String(activeIndex + 1).padStart(2, "0")}</span><span className="webzine-cover__file-label">생활표지 {String(activeIndex + 1).padStart(2, "0")} · 확인용 특집</span></div>
+        <div className="webzine-cover__copy"><CategoryLabel slug={activeStory.category} /><span className="webzine-cover__status">업데이트 {activeStory.updated} · 공식 안내 확인</span><h1 id="feature-title">{activeStory.title}</h1><p>{activeStory.excerpt}</p><div className="webzine-cover__foot"><span>먼저 확인할 것: 대상 · 시기 · 담당 기관</span><span>조건부터 읽기 <ArrowRight size={17} /></span></div></div>
+      </Link>
+      <div className="featured-slider__controls"><button type="button" onClick={() => moveTo(activeIndex - 1)} aria-label="이전 특집 기사"><ChevronLeft size={20} /></button><span aria-live="polite">{activeIndex + 1} / {featureStories.length}</span><button type="button" onClick={() => moveTo(activeIndex + 1)} aria-label="다음 특집 기사"><ChevronRight size={20} /></button></div>
+      <div className="featured-slider__dots" role="tablist" aria-label="특집 기사 선택">{featureStories.map((story, index) => <button key={story.slug} type="button" className={index === activeIndex ? "is-active" : ""} onClick={() => moveTo(index)} aria-label={`${index + 1}번 특집: ${story.title}`} aria-selected={index === activeIndex} role="tab" />)}</div>
+    </div>
+  </section>;
+}
+
+function LatestArticleStrip() {
+  return <section className="home-recent container" aria-labelledby="latest-articles-title"><div className="home-recent__head"><div><span>RECENT ARTICLES</span><h2 id="latest-articles-title">최신 아티클</h2></div><Link href="/search">전체 보기 <ArrowRight size={15} /></Link></div><div className="home-recent__grid">{articles.slice(0, 4).map((article) => <Link key={article.slug} href={`/article/${article.slug}`} className="home-recent-card"><img src={article.image} alt="" /><div><CategoryLabel slug={article.category} /><h3>{article.title}</h3></div></Link>)}</div></section>;
+}
+
 export default function Home() {
   return (
     <>
@@ -41,13 +71,8 @@ export default function Home() {
         <div className="container webzine-intro__inner"><span>DEUNDEUN 4060 · AUGUST 2026</span><p>생활을 차분히 읽고, 다음을 준비하는 시간</p></div>
       </section>
 
-      <section className="webzine-feature container" aria-labelledby="feature-title">
-        <div className="webzine-feature__label"><span>이달의 든든한 특집 스토리</span><span>FEATURE 01</span></div>
-        <Link href={`/article/${featured.slug}`} className="webzine-cover">
-          <div className="webzine-cover__image"><img src={featured.image} alt="노트와 생활 서류가 놓인 햇살 드는 책상" /><span className="webzine-cover__issue">08</span><span className="webzine-cover__file-label">생활표지 01 · 확인용 특집</span></div>
-          <div className="webzine-cover__copy"><CategoryLabel slug={featured.category} /><span className="webzine-cover__status">업데이트 {featured.updated} · 공식 안내 확인</span><h1 id="feature-title">{featured.title}</h1><p>{featured.excerpt}</p><div className="webzine-cover__foot"><span>먼저 확인할 것: 대상 · 시기 · 담당 기관</span><span>조건부터 읽기 <ArrowRight size={17} /></span></div></div>
-        </Link>
-      </section>
+      <FeaturedStorySlider />
+      <LatestArticleStrip />
 
       <section className="webzine-corner container">
         <CornerHead issue="CORNER 01" title="생활 속 복지 톺아보기" description="막연한 검색보다, 나에게 필요한 도움을 찾는 순서부터 살펴봅니다." href="/category/welfare" />
