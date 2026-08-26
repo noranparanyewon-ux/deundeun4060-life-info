@@ -1,4 +1,4 @@
-name: Publish verified scheduled content
+name: Publish verified scheduled content to GitHub Pages
 
 on:
   push:
@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: deundeun4060-pages-production
+  group: github-pages
   cancel-in-progress: false
 
 jobs:
@@ -17,10 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      deployments: write
+      pages: write
+      id-token: write
     env:
-      CLOUDFLARE_PROJECT_NAME: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-      SITE_URL: ${{ vars.SITE_URL }}
+      SITE_URL: ${{ vars.SITE_URL || format('https://{0}.github.io/{1}', github.repository_owner, github.event.repository.name) }}
+      VITE_BASE_PATH: ${{ vars.VITE_BASE_PATH || format('/{0}/', github.event.repository.name) }}
     steps:
       - name: Check out the published source
         uses: actions/checkout@v6
@@ -35,14 +36,14 @@ jobs:
         run: pnpm install --frozen-lockfile
       - name: Recheck the article manifest and public payload
         run: pnpm content:verify && pnpm content:audit && pnpm check && pnpm test
-      - name: Build public Pages assets
-        run: |
-          export SITE_URL="${SITE_URL:-https://${CLOUDFLARE_PROJECT_NAME}.pages.dev}"
-          pnpm build:cloudflare
-      - name: Deploy published assets to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v4
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Build public GitHub Pages assets
+        run: pnpm build:github-pages
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy dist/public --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          path: dist/public
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

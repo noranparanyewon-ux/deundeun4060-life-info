@@ -100,4 +100,18 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
     expect(homeSource).toContain('aria-label="이전 특집 기사"');
     expect(homeSource).toContain('aria-label="다음 특집 기사"');
   });
+
+  it("ships GitHub Pages routing and deployment without Cloudflare deployment secrets", () => {
+    const workflow = readFileSync(new URL("../../../.github/workflows/publish-scheduled-content.yml", import.meta.url), "utf8");
+    const viteConfig = readFileSync(new URL("../../../vite.config.ts", import.meta.url), "utf8");
+    const mainSource = readFileSync(new URL("../main.tsx", import.meta.url), "utf8");
+    const fallback = readFileSync(new URL("../../public/404.html", import.meta.url), "utf8");
+    expect(workflow).toContain("actions/deploy-pages@v4");
+    expect(workflow).toContain("actions/upload-pages-artifact@v3");
+    expect(workflow).not.toContain("cloudflare/wrangler-action");
+    expect(workflow).not.toContain("CLOUDFLARE_API_TOKEN");
+    expect(viteConfig).toContain("process.env.VITE_BASE_PATH || \"/\"");
+    expect(mainSource).toContain("<Router base={routerBase}>");
+    expect(fallback).toContain("deundeun4060-life-info");
+  });
 });

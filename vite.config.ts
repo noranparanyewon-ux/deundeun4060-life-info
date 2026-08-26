@@ -205,6 +205,7 @@ function vitePluginStorageProxy(): Plugin {
 
 export default defineConfig(({ command }) => {
   const plugins: Plugin[] = [react(), tailwindcss(), jsxLocPlugin()];
+  const base = process.env.VITE_BASE_PATH || "/";
   if (command === "serve") {
     plugins.push(vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy());
   }
@@ -220,6 +221,7 @@ export default defineConfig(({ command }) => {
   },
   envDir: path.resolve(import.meta.dirname),
   root: path.resolve(import.meta.dirname, "client"),
+  base,
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,

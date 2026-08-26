@@ -11,6 +11,7 @@
     "content:prepare": "node scripts/prepare-public-content.mjs",
     "build": "pnpm content:prepare && node scripts/generate-seo.mjs && vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "build:cloudflare": "pnpm content:prepare && node scripts/generate-seo.mjs && vite build",
+    "build:github-pages": "pnpm content:prepare && node scripts/generate-seo.mjs && vite build",
     "package:cloudflare": "pnpm build:cloudflare && cd dist/public && zip -rFS ../../deundeun4060-cloudflare-pages.zip .",
     "start": "NODE_ENV=production node dist/index.js",
     "preview": "vite preview --host",

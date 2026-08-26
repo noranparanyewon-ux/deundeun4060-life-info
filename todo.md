@@ -75,4 +75,7 @@
 - [x] Refresh the GitHub authorization and retry pushing the verified release after reconnection.
 - [ ] Verify the reconnected GitHub token can write to the repository and push the checkpointed release branch.
 - [ ] Fix the GitHub Actions pnpm setup failure and re-run the published workflow after Cloudflare credentials are available.
+- [ ] Replace the Cloudflare Pages workflow with a GitHub Pages deployment workflow that needs no external deployment token.
+- [ ] Configure the static build for the GitHub Pages repository path while preserving custom-domain compatibility.
+- [ ] Verify GitHub Pages deployment and the KST 09:00/18:00 scheduled-publication workflow from the pushed repository.
 - [x] Document the GitHub and Cloudflare credentials and deployment steps required for the owner to enable automated releases after final verification.

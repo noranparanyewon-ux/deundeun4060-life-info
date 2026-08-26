@@ -27,6 +27,8 @@ const pageMeta: Record<string, { title: string; description: string }> = {
 export function SEO({ title, description, canonicalPath }: { title?: string; description?: string; canonicalPath?: string }) {
   const [location] = useLocation();
   useEffect(() => {
+    const basePath = import.meta.env.BASE_URL.replace(/\/$/, "");
+    const siteOrigin = `${window.location.origin}${basePath}`;
     const normalizedPath = location.split("?")[0];
     const canonicalRoute = canonicalPath ?? normalizedPath;
     const fallback = pageMeta[normalizedPath] ?? { title: siteName, description: siteDescription };
@@ -51,7 +53,7 @@ export function SEO({ title, description, canonicalPath }: { title?: string; des
     setMeta("og:title", resolvedTitle, true);
     setMeta("og:description", resolvedDescription, true);
     setMeta("og:type", "website", true);
-    setMeta("og:url", `${window.location.origin}${canonicalRoute}`, true);
+    setMeta("og:url", `${siteOrigin}${canonicalRoute}`, true);
     setMeta("twitter:card", "summary_large_image");
 
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
@@ -60,16 +62,22 @@ export function SEO({ title, description, canonicalPath }: { title?: string; des
       canonical.rel = "canonical";
       document.head.appendChild(canonical);
     }
-    canonical.href = `${window.location.origin}${canonicalRoute}`;
+    canonical.href = `${siteOrigin}${canonicalRoute}`;
   }, [canonicalPath, description, location, title]);
   return null;
 }
 
 function ScrollToTop() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   useEffect(() => {
+    const redirect = new URLSearchParams(window.location.search).get("redirect");
+    if (redirect?.startsWith("/") && !redirect.startsWith("//")) {
+      window.history.replaceState({}, "", redirect);
+      setLocation(redirect);
+      return;
+    }
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [location]);
+  }, [location, setLocation]);
   return null;
 }
 
