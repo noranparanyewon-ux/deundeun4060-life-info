@@ -51,3 +51,7 @@
 - [x] Verify the compact mobile homepage, slider, recent-article list, and responsive spacing before delivery.
 - [x] Verify previous control, every indicator button, five-story traversal, and wraparound behavior in the feature slider; record the result.
 - [x] Save a new checkpoint after the completed slider, latest-article, and compact-mobile-home changes.
+- [x] Review all public Korean labels, headings, article cards, descriptions, and policy text for nonstandard spelling, typos, and unnatural wording.
+- [x] Replace the nonstandard section wording, prevent awkward Korean word splits in mobile cards, and preserve readable title wrapping.
+- [x] Check site-owned versus platform-owned badge behavior and remove only controls that originate in site code.
+- [x] Verify corrected copy and card layout on mobile and desktop, then save the correction checkpoint.

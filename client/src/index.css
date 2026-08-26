@@ -877,6 +877,7 @@ body { line-height: 1.65; }
 .home-recent-card img { width: 84px; height: 65px; object-fit: cover; }
 .home-recent-card .category-label { font-size: 9px; }
 .home-recent-card h3 { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; margin: 5px 0 0; font-family: "Noto Serif KR", serif; font-size: 15px; font-weight: 600; line-height: 1.46; letter-spacing: -.06em; }
+.magazine-card__body h3, .home-recent-card h3, .archive-row__copy h3, .search-row h3, .related-card h3, .webzine-cover__copy h1 { word-break: keep-all; overflow-wrap: break-word; }
 
 @media (max-width: 720px) {
   .webzine-feature { padding-top: 18px; padding-bottom: 18px; }
