@@ -38,6 +38,8 @@ jobs:
         run: pnpm content:verify && pnpm content:audit && pnpm check && pnpm test
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - name: Build public GitHub Pages assets
         run: pnpm build:github-pages
       - name: Upload GitHub Pages artifact
