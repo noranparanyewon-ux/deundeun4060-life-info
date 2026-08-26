@@ -31,7 +31,7 @@ export default function Home() {
           </div>
           <div className="hero-visual" aria-label="생활 정보 아카이브를 상징하는 책상 이미지">
             <img src="/manus-storage/deundeun4060-hero_640c5466.png" alt="노트와 생활 서류가 놓인 햇살 드는 책상" />
-            <div className="hero-stamp"><Bookmark size={16} /><span>읽어두면<br /><strong>도움이 되는</strong> 정보</span></div>
+            <div className="hero-stamp"><Bookmark size={16} /><span>읽어두면<br /><strong>도움이 되는</strong> 정보</span><small>기준 2026.08</small></div>
           </div>
         </div>
       </section>
@@ -62,7 +62,7 @@ export default function Home() {
       </section>
 
       <section className="latest-section">
-        <div className="container latest-layout"><div className="latest-intro"><span className="section-kicker">새로 정리한 글</span><h2>천천히 읽어도<br /><em>남는 정보</em></h2><p>당장 결론을 내리기보다, 내 상황에 맞는지 확인하는 데 도움이 되는 글을 모읍니다.</p><Link href="/search" className="text-link">모든 글 살펴보기 <ChevronRight size={16} /></Link></div><div className="latest-list">{supportingArticles.map((article, index) => <Link key={article.slug} href={`/article/${article.slug}`} className="latest-row"><span className="latest-index">0{index + 1}</span><div><CategoryLabel slug={article.category} /><h3>{article.title}</h3><p>{article.excerpt}</p></div><div className="latest-meta"><span><Clock3 size={14} /> {article.readingTime}</span><ArrowRight size={17} /></div></Link>)}</div></div>
+        <div className="container latest-layout"><div className="latest-intro"><span className="section-kicker">새로 정리한 글</span><h2>천천히 읽어도<br /><em>남는 정보</em></h2><p>당장 결론을 내리기보다, 내 상황에 맞는지 확인하는 데 도움이 되는 글을 모읍니다.</p><Link href="/search" className="text-link">모든 글 살펴보기 <ChevronRight size={16} /></Link></div><div className="latest-list">{supportingArticles.map((article, index) => <Link key={article.slug} href={`/article/${article.slug}`} className="latest-row"><span className="latest-index">0{index + 1}</span><div><CategoryLabel slug={article.category} /><h3>{article.title}</h3><p>{article.excerpt}</p></div><div className="latest-meta"><span><Clock3 size={14} /> {article.readingTime}</span><span>업데이트 {article.updated}</span><span className="verified-meta">공식 확인</span><ArrowRight size={17} /></div></Link>)}</div></div>
       </section>
 
       <section className="home-note container"><div className="note-mark"><FileCheck2 size={27} /></div><div><span className="section-kicker">정보를 이용하는 방법</span><h2>이곳의 글은 판단을 대신하지 않습니다.</h2><p>제도와 건강 정보는 개인의 조건과 시점에 따라 달라질 수 있습니다. 이 사이트는 이해를 돕는 출발점이며, 최종 기준은 각 기관의 최신 안내와 상담을 확인해 주세요.</p></div><Link href="/disclaimer" className="button button--outline">면책 안내 읽기 <ArrowRight size={16} /></Link></section>

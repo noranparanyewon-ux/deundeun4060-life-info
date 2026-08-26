@@ -2,3 +2,6 @@
 - [x] Identify which reference elements reinforce the approved 생활 문서 아카이브 design direction and reject incompatible patterns.
 - [x] Apply a cohesive homepage and navigation refinement that improves visual hierarchy without copying reference brands or content.
 - [x] Verify representative desktop and mobile routes, then document and deliver the update.
+- [x] Audit headline, body, navigation, card, metadata, and footer type scales against the supplied mobile screenshot.
+- [x] Adjust the global typography scale and mobile line-height rules across all routes while preserving 40~60대 readability.
+- [x] Verify desktop and mobile pages after the typography change, then save and deliver the revised checkpoint.
