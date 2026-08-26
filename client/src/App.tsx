@@ -1,7 +1,7 @@
 /* 생활 문서 아카이브 / 아이보리 종이 / 잉크 네이비 / 든든한 청록 / 편집 지면형 비대칭 레이아웃 */
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Link, Route, Switch, useLocation } from "wouter";
-import { ArrowUpRight, Menu, Search, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -106,9 +106,12 @@ function Header() {
         <SiteMark />
         <nav className={`main-nav ${menuOpen ? "main-nav--open" : ""}`} aria-label="주요 메뉴">
           <Link href="/" onClick={closeMenu} className={location === "/" ? "is-active" : ""}>홈</Link>
-          <Link href="/category/welfare" onClick={closeMenu} className={location.startsWith("/category") ? "is-active" : ""}>주제별 보기</Link>
+          <Link href="/category/welfare" onClick={closeMenu} className={location === "/category/welfare" ? "is-active" : ""}>복지</Link>
+          <Link href="/category/pension" onClick={closeMenu} className={location === "/category/pension" ? "is-active" : ""}>연금</Link>
+          <Link href="/category/health" onClick={closeMenu} className={location === "/category/health" ? "is-active" : ""}>건강</Link>
+          <Link href="/category/saving" onClick={closeMenu} className={location === "/category/saving" ? "is-active" : ""}>생활비</Link>
+          <Link href="/category/digital" onClick={closeMenu} className={location === "/category/digital" ? "is-active" : ""}>디지털</Link>
           <Link href="/about" onClick={closeMenu} className={location === "/about" ? "is-active" : ""}>사이트 소개</Link>
-          <Link href="/contact" onClick={closeMenu} className={location === "/contact" ? "is-active" : ""}>문의</Link>
         </nav>
         <div className="header-actions">
           <form className="header-search" onSubmit={onSearch} role="search">
@@ -160,7 +163,6 @@ function Shell({ children }: { children: ReactNode }) {
       <Header />
       <main>{children}</main>
       <Footer />
-      <Link href="/contact" className="floating-help" aria-label="문의 페이지로 이동"><span>도움이 필요하신가요?</span><ArrowUpRight size={16} /></Link>
     </div>
   );
 }

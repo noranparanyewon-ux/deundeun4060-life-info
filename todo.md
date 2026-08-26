@@ -15,3 +15,10 @@
 - [x] Replace the promotional home hero with a concise archive header and prominent integrated search.
 - [x] Present all five categories as a clean portal grid and expose real starter articles in a dense latest-information card list.
 - [x] Verify the redesigned homepage at desktop and mobile widths, then save and deliver the updated checkpoint.
+- [x] Replace the portal-style homepage with a wide monthly-feature cover and editorial webzine corner sections.
+- [x] Present real starter articles as thumbnail, headline, and two-line-summary magazine cards using the five approved content categories.
+- [x] Replace abstract homepage magazine-card visuals with original editorial thumbnails for the real starter articles.
+- [x] Verify every primary category route and the key article, introduction, contact, and policy paths for valid internal rendering.
+- [x] Refine the global header, editorial serif/sans typography, borders, spacing, and responsive grid while retaining working navigation.
+- [x] Remove site-owned floating or placeholder controls and verify that no broken links or unfinished visible elements remain.
+- [x] Validate desktop and mobile Editorial Webzine routes, build the project, and save the finished redesign checkpoint.

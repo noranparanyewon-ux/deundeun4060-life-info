@@ -1,108 +1,71 @@
-/* 생활 문서 아카이브 / 정보 포털형 홈 / 검색 우선 / 카테고리 그리드 / 최신 글 목록 */
-import type { CSSProperties, FormEvent } from "react";
-import { useState } from "react";
-import { ArrowRight, BadgeDollarSign, BookOpenCheck, CheckCircle2, Clock3, FileText, HeartPulse, Landmark, Search, ShieldCheck, Smartphone, WalletCards } from "lucide-react";
-import { Link, useLocation } from "wouter";
-import { articles, categories, getCategory } from "../lib/siteData";
+/* Editorial Life Webzine / 크림 지면 / 세리프 헤드라인 / 코너형 매거진 그리드 */
+import type { CSSProperties } from "react";
+import { ArrowRight, Clock3, Compass, FileText, Sparkles } from "lucide-react";
+import { Link } from "wouter";
+import { articles, getCategory } from "../lib/siteData";
 
-const categoryIcons = {
-  welfare: Landmark,
-  pension: BadgeDollarSign,
-  health: HeartPulse,
-  saving: WalletCards,
-  digital: Smartphone,
-};
+const featured = articles.find((article) => article.featured) ?? articles[0];
+const welfare = articles.find((article) => article.category === "welfare") ?? featured;
+const pension = articles.find((article) => article.category === "pension") ?? featured;
+const health = articles.find((article) => article.category === "health") ?? featured;
+const saving = articles.find((article) => article.category === "saving") ?? featured;
+const digital = articles.find((article) => article.category === "digital") ?? featured;
 
 function CategoryLabel({ slug }: { slug: string }) {
   const category = getCategory(slug);
   return <span className="category-label" style={{ "--label-accent": category?.accent } as CSSProperties}>{category?.label ?? "생활정보"}</span>;
 }
 
+function MagazineCard({ article, featuredCard = false, visual = "paper" }: { article: typeof featured; featuredCard?: boolean; visual?: "paper" | "line" | "sun" | "grid" }) {
+  return <Link href={`/article/${article.slug}`} className={`magazine-card ${featuredCard ? "magazine-card--feature" : ""}`}>
+    <div className={`magazine-card__visual magazine-card__visual--${visual}`}>
+      {article.image ? <><img src={article.image} alt="생활 정보 글을 상징하는 편집 사진" /><span className="magazine-card__image-label">생활표지 · 공식 안내 확인</span></> : <><span className="magazine-card__folio">생활 기록 · {article.updated}</span><span className="magazine-card__symbol">{visual === "sun" ? "○" : visual === "grid" ? "□" : visual === "line" ? "—" : "◇"}</span><span className="magazine-card__visual-note">{getCategory(article.category)?.eyebrow} · 확인표</span></>}
+    </div>
+    <div className="magazine-card__body">
+      <div className="magazine-card__meta"><CategoryLabel slug={article.category} /><span>업데이트 {article.updated}</span><span className="magazine-card__verified">공식 안내 확인</span></div>
+      <h3>{article.title}</h3>
+      <p>{article.excerpt}</p>
+      <span className="magazine-card__foot"><Clock3 size={14} /> {article.readingTime}<ArrowRight size={16} /></span>
+    </div>
+  </Link>;
+}
+
+function CornerHead({ issue, title, description, href }: { issue: string; title: string; description: string; href: string }) {
+  return <div className="webzine-corner-head"><div><span>{issue}</span><h2>{title}</h2><p>{description}</p></div><Link href={href} aria-label={`${title} 전체 보기`}><ArrowRight size={19} /></Link></div>;
+}
+
 export default function Home() {
-  const [, setLocation] = useLocation();
-  const [query, setQuery] = useState("");
-  const latestArticles = [...articles].sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 5);
-
-  const onSearch = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    const nextQuery = query.trim();
-    setLocation(nextQuery ? `/search?q=${encodeURIComponent(nextQuery)}` : "/search");
-  };
-
   return (
     <>
-      <section className="portal-top">
-        <div className="container portal-top__inner">
-          <div className="portal-title-row">
-            <div>
-              <span className="portal-eyebrow">생활 정보 아카이브 · 업데이트 기준 2026.08</span>
-              <h1>4060 세대를 위한 생활·복지·연금 정보 아카이브</h1>
-            </div>
-            <span className="portal-status"><CheckCircle2 size={15} /> 공식 안내 확인 중심</span>
-          </div>
-          <form className="portal-search" onSubmit={onSearch} role="search">
-            <Search size={21} aria-hidden="true" />
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="궁금한 생활 정보를 검색하세요. 예: 기초연금, 건강검진, 스마트폰 보안" aria-label="생활 정보 검색" />
-            <button type="submit">검색 <ArrowRight size={16} /></button>
-          </form>
-          <div className="portal-popular"><span>자주 찾는 정보</span><Link href="/category/welfare">정부지원 혜택</Link><Link href="/category/pension">연금·노후준비</Link><Link href="/category/health">건강검진</Link><Link href="/category/digital">스마트폰 보안</Link></div>
+      <section className="webzine-intro">
+        <div className="container webzine-intro__inner"><span>DEUNDEUN 4060 · AUGUST 2026</span><p>생활을 차분히 읽고, 다음을 준비하는 시간</p></div>
+      </section>
+
+      <section className="webzine-feature container" aria-labelledby="feature-title">
+        <div className="webzine-feature__label"><span>이달의 든든한 특집 스토리</span><span>FEATURE 01</span></div>
+        <Link href={`/article/${featured.slug}`} className="webzine-cover">
+          <div className="webzine-cover__image"><img src={featured.image} alt="노트와 생활 서류가 놓인 햇살 드는 책상" /><span className="webzine-cover__issue">08</span><span className="webzine-cover__file-label">생활표지 01 · 확인용 특집</span></div>
+          <div className="webzine-cover__copy"><CategoryLabel slug={featured.category} /><span className="webzine-cover__status">업데이트 {featured.updated} · 공식 안내 확인</span><h1 id="feature-title">{featured.title}</h1><p>{featured.excerpt}</p><div className="webzine-cover__foot"><span>먼저 확인할 것: 대상 · 시기 · 담당 기관</span><span>조건부터 읽기 <ArrowRight size={17} /></span></div></div>
+        </Link>
+      </section>
+
+      <section className="webzine-corner container">
+        <CornerHead issue="CORNER 01" title="생활 속 복지 톺아보기" description="막연한 검색보다, 나에게 필요한 도움을 찾는 순서부터 살펴봅니다." href="/category/welfare" />
+        <div className="webzine-grid webzine-grid--two"><MagazineCard article={welfare} visual="paper" /><MagazineCard article={health} visual="sun" /></div>
+      </section>
+
+      <section className="webzine-corner webzine-corner--tint">
+        <div className="container"><CornerHead issue="CORNER 02" title="이달의 연금 이야기" description="복잡한 계산보다, 생활의 우선순위에서 시작하는 노후 준비입니다." href="/category/pension" />
+          <div className="webzine-spotlight"><div className="webzine-spotlight__mark"><span>생활<br />노트</span><strong>02</strong></div><MagazineCard article={pension} featuredCard visual="line" /><aside><Compass size={24} /><p>연금과 노후 준비는 현재 생활을 돌아보는 질문에서 시작할 수 있습니다.</p><Link href="/category/pension">연금·노후준비 전체 보기 <ArrowRight size={15} /></Link></aside></div>
         </div>
       </section>
 
-      <section className="portal-categories container" aria-labelledby="portal-category-heading">
-        <div className="portal-section-head">
-          <div><span className="section-kicker">주제별로 찾기</span><h2 id="portal-category-heading">필요한 정보를 바로 찾아보세요</h2></div>
-          <span className="portal-section-note">5개 생활 정보 카테고리</span>
-        </div>
-        <div className="portal-category-grid">
-          {categories.map((category, index) => {
-            const Icon = categoryIcons[category.slug as keyof typeof categoryIcons] ?? FileText;
-            const count = articles.filter((article) => article.category === category.slug).length;
-            return <Link key={category.slug} href={`/category/${category.slug}`} className="portal-category-card" style={{ "--portal-accent": category.accent } as CSSProperties}>
-              <span className="portal-category-number">0{index + 1}</span>
-              <span className="portal-category-icon"><Icon size={23} /></span>
-              <strong>{category.label}</strong>
-              <p>{category.description}</p>
-              <span className="portal-category-meta">등록 글 {count}개 <ArrowRight size={14} /></span>
-            </Link>;
-          })}
-        </div>
+      <section className="webzine-corner container">
+        <CornerHead issue="CORNER 03" title="오늘의 생활 편집" description="살림의 흐름을 정리하고, 디지털 생활을 안전하게 이어가는 작은 방법들입니다." href="/search" />
+        <div className="webzine-grid webzine-grid--three"><MagazineCard article={saving} visual="grid" /><MagazineCard article={digital} visual="line" /><Link href="/about" className="webzine-principle"><Sparkles size={22} /><span>EDITOR'S NOTE</span><h3>정보를 고르는 기준</h3><p>개인의 조건을 단정하지 않고, 공식 안내를 다시 확인할 수 있도록 정리합니다.</p><span>운영 원칙 보기 <ArrowRight size={15} /></span></Link></div>
       </section>
 
-      <section className="portal-feed container" aria-labelledby="latest-information-heading">
-        <div className="portal-feed__main">
-          <div className="portal-section-head portal-section-head--feed">
-            <div><span className="section-kicker">최신 생활정보</span><h2 id="latest-information-heading">새로 정리한 글</h2></div>
-            <Link href="/search" className="section-link">전체 글 보기 <ArrowRight size={16} /></Link>
-          </div>
-          <div className="portal-article-list">
-            {latestArticles.map((article, index) => <Link key={article.slug} href={`/article/${article.slug}`} className="portal-article-card">
-              <span className="portal-article-index">{String(index + 1).padStart(2, "0")}</span>
-              <div className="portal-article-copy">
-                <div className="portal-article-copy__meta"><CategoryLabel slug={article.category} /><span>업데이트 {article.updated}</span><span className="verified-meta">공식 안내 확인</span></div>
-                <h3>{article.title}</h3>
-                <p>{article.excerpt}</p>
-                <span className="portal-read-time"><Clock3 size={14} /> {article.readingTime}</span>
-              </div>
-              <ArrowRight className="portal-article-arrow" size={18} />
-            </Link>)}
-          </div>
-        </div>
-        <aside className="portal-side" aria-label="정보 이용 안내">
-          <div className="portal-side-card">
-            <BookOpenCheck size={23} />
-            <span className="section-kicker">이용 전 확인</span>
-            <h2>정보는 이렇게 읽어보세요.</h2>
-            <ol><li><span>01</span><p>현재 내 상황과 필요한 도움을 먼저 정리합니다.</p></li><li><span>02</span><p>글의 조건·신청 방법·주의사항을 확인합니다.</p></li><li><span>03</span><p>최종 기준은 연결된 공식 안내에서 다시 확인합니다.</p></li></ol>
-            <Link href="/about" className="text-link">우리가 정리하는 기준 <ArrowRight size={15} /></Link>
-          </div>
-          <div className="portal-side-links">
-            <div><ShieldCheck size={18} /><span>운영 안내</span></div>
-            <Link href="/privacy">개인정보처리방침 <ArrowRight size={14} /></Link>
-            <Link href="/disclaimer">이용안내 및 면책조항 <ArrowRight size={14} /></Link>
-          </div>
-        </aside>
-      </section>
+      <section className="webzine-footer-note container"><FileText size={20} /><p>이 사이트는 40~60대의 생활 속 선택을 돕기 위한 정보 참고서입니다. 제도·건강·금융의 최종 기준은 관련 기관의 최신 안내를 확인해 주세요.</p><Link href="/disclaimer">이용안내 <ArrowRight size={15} /></Link></section>
     </>
   );
 }
