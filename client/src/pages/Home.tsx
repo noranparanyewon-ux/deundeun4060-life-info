@@ -1,71 +1,108 @@
-/* 생활 문서 아카이브 / 아이보리 종이 / 잉크 네이비 / 든든한 청록 / 편집 지면형 비대칭 레이아웃 */
-import type { CSSProperties } from "react";
-import { ArrowRight, Bookmark, Check, ChevronRight, Clock3, Compass, FileCheck2, FileText, Sparkles } from "lucide-react";
-import { Link } from "wouter";
+/* 생활 문서 아카이브 / 정보 포털형 홈 / 검색 우선 / 카테고리 그리드 / 최신 글 목록 */
+import type { CSSProperties, FormEvent } from "react";
+import { useState } from "react";
+import { ArrowRight, BadgeDollarSign, BookOpenCheck, CheckCircle2, Clock3, FileText, HeartPulse, Landmark, Search, ShieldCheck, Smartphone, WalletCards } from "lucide-react";
+import { Link, useLocation } from "wouter";
 import { articles, categories, getCategory } from "../lib/siteData";
 
-const featured = articles.find((article) => article.featured) ?? articles[0];
-const supportingArticles = articles.filter((article) => article.slug !== featured.slug).slice(0, 3);
+const categoryIcons = {
+  welfare: Landmark,
+  pension: BadgeDollarSign,
+  health: HeartPulse,
+  saving: WalletCards,
+  digital: Smartphone,
+};
 
 function CategoryLabel({ slug }: { slug: string }) {
   const category = getCategory(slug);
-  return <span className="category-label" style={{ "--label-accent": category?.accent } as React.CSSProperties}>{category?.label ?? "생활정보"}</span>;
+  return <span className="category-label" style={{ "--label-accent": category?.accent } as CSSProperties}>{category?.label ?? "생활정보"}</span>;
 }
 
 export default function Home() {
+  const [, setLocation] = useLocation();
+  const [query, setQuery] = useState("");
+  const latestArticles = [...articles].sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 5);
+
+  const onSearch = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const nextQuery = query.trim();
+    setLocation(nextQuery ? `/search?q=${encodeURIComponent(nextQuery)}` : "/search");
+  };
+
   return (
     <>
-      <section className="home-hero">
-        <div className="container hero-layout">
-          <div className="hero-copy">
-            <div className="hero-issue" aria-label="이번 호 생활 아카이브 정보"><span>생활 아카이브</span><strong>2026.08</strong><span>이번 주 정리</span></div>
-            <p className="eyebrow"><span className="eyebrow-line" /> 오늘의 생활 아카이브</p>
-            <h1>내일을 조금 더<br /><em>든든하게</em> 준비하는 법</h1>
-            <p className="hero-lede">40~60대를 위한 복지, 연금, 건강, 생활 절약 정보를 한 번 더 확인하고 이해하기 쉽게 정리합니다.</p>
-            <div className="hero-actions">
-              <Link href="/category/welfare" className="button button--primary">필요한 정보부터 찾기 <ArrowRight size={17} /></Link>
-              <Link href="/about" className="text-link">우리가 정리하는 기준 <ChevronRight size={16} /></Link>
+      <section className="portal-top">
+        <div className="container portal-top__inner">
+          <div className="portal-title-row">
+            <div>
+              <span className="portal-eyebrow">생활 정보 아카이브 · 업데이트 기준 2026.08</span>
+              <h1>4060 세대를 위한 생활·복지·연금 정보 아카이브</h1>
             </div>
-            <div className="hero-proof"><span><Check size={15} /> 공식 자료 확인을 우선합니다</span><span><Check size={15} /> 읽기 쉬운 생활 언어로 씁니다</span></div>
-            <div className="hero-today"><span className="hero-today__label">오늘 바로 확인할 수 있는 것</span><Link href="/category/welfare">받을 수 있는 지원 <ArrowRight size={14} /></Link><Link href="/category/digital">스마트폰 보안 <ArrowRight size={14} /></Link><Link href="/category/health">검진 전 준비 <ArrowRight size={14} /></Link></div>
+            <span className="portal-status"><CheckCircle2 size={15} /> 공식 안내 확인 중심</span>
           </div>
-          <div className="hero-visual" aria-label="생활 정보 아카이브를 상징하는 책상 이미지">
-            <img src="/manus-storage/deundeun4060-hero_640c5466.png" alt="노트와 생활 서류가 놓인 햇살 드는 책상" />
-            <div className="hero-stamp"><Bookmark size={16} /><span>읽어두면<br /><strong>도움이 되는</strong> 정보</span><small>기준 2026.08</small></div>
+          <form className="portal-search" onSubmit={onSearch} role="search">
+            <Search size={21} aria-hidden="true" />
+            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="궁금한 생활 정보를 검색하세요. 예: 기초연금, 건강검진, 스마트폰 보안" aria-label="생활 정보 검색" />
+            <button type="submit">검색 <ArrowRight size={16} /></button>
+          </form>
+          <div className="portal-popular"><span>자주 찾는 정보</span><Link href="/category/welfare">정부지원 혜택</Link><Link href="/category/pension">연금·노후준비</Link><Link href="/category/health">건강검진</Link><Link href="/category/digital">스마트폰 보안</Link></div>
+        </div>
+      </section>
+
+      <section className="portal-categories container" aria-labelledby="portal-category-heading">
+        <div className="portal-section-head">
+          <div><span className="section-kicker">주제별로 찾기</span><h2 id="portal-category-heading">필요한 정보를 바로 찾아보세요</h2></div>
+          <span className="portal-section-note">5개 생활 정보 카테고리</span>
+        </div>
+        <div className="portal-category-grid">
+          {categories.map((category, index) => {
+            const Icon = categoryIcons[category.slug as keyof typeof categoryIcons] ?? FileText;
+            const count = articles.filter((article) => article.category === category.slug).length;
+            return <Link key={category.slug} href={`/category/${category.slug}`} className="portal-category-card" style={{ "--portal-accent": category.accent } as CSSProperties}>
+              <span className="portal-category-number">0{index + 1}</span>
+              <span className="portal-category-icon"><Icon size={23} /></span>
+              <strong>{category.label}</strong>
+              <p>{category.description}</p>
+              <span className="portal-category-meta">등록 글 {count}개 <ArrowRight size={14} /></span>
+            </Link>;
+          })}
+        </div>
+      </section>
+
+      <section className="portal-feed container" aria-labelledby="latest-information-heading">
+        <div className="portal-feed__main">
+          <div className="portal-section-head portal-section-head--feed">
+            <div><span className="section-kicker">최신 생활정보</span><h2 id="latest-information-heading">새로 정리한 글</h2></div>
+            <Link href="/search" className="section-link">전체 글 보기 <ArrowRight size={16} /></Link>
+          </div>
+          <div className="portal-article-list">
+            {latestArticles.map((article, index) => <Link key={article.slug} href={`/article/${article.slug}`} className="portal-article-card">
+              <span className="portal-article-index">{String(index + 1).padStart(2, "0")}</span>
+              <div className="portal-article-copy">
+                <div className="portal-article-copy__meta"><CategoryLabel slug={article.category} /><span>업데이트 {article.updated}</span><span className="verified-meta">공식 안내 확인</span></div>
+                <h3>{article.title}</h3>
+                <p>{article.excerpt}</p>
+                <span className="portal-read-time"><Clock3 size={14} /> {article.readingTime}</span>
+              </div>
+              <ArrowRight className="portal-article-arrow" size={18} />
+            </Link>)}
           </div>
         </div>
+        <aside className="portal-side" aria-label="정보 이용 안내">
+          <div className="portal-side-card">
+            <BookOpenCheck size={23} />
+            <span className="section-kicker">이용 전 확인</span>
+            <h2>정보는 이렇게 읽어보세요.</h2>
+            <ol><li><span>01</span><p>현재 내 상황과 필요한 도움을 먼저 정리합니다.</p></li><li><span>02</span><p>글의 조건·신청 방법·주의사항을 확인합니다.</p></li><li><span>03</span><p>최종 기준은 연결된 공식 안내에서 다시 확인합니다.</p></li></ol>
+            <Link href="/about" className="text-link">우리가 정리하는 기준 <ArrowRight size={15} /></Link>
+          </div>
+          <div className="portal-side-links">
+            <div><ShieldCheck size={18} /><span>운영 안내</span></div>
+            <Link href="/privacy">개인정보처리방침 <ArrowRight size={14} /></Link>
+            <Link href="/disclaimer">이용안내 및 면책조항 <ArrowRight size={14} /></Link>
+          </div>
+        </aside>
       </section>
-
-      <section className="home-signal container" aria-label="사이트 이용 안내">
-        <div className="signal-intro"><span className="section-kicker">먼저 읽어보세요</span><h2>지금 필요한 생활의<br />기준을 찾습니다.</h2></div>
-        <div className="signal-items">
-          <div className="signal-item"><span className="signal-number">01</span><div><strong>상황으로 찾기</strong><p>막연한 키워드보다 지금 필요한 도움부터 골라보세요.</p></div></div>
-          <div className="signal-item"><span className="signal-number">02</span><div><strong>핵심부터 읽기</strong><p>조건과 다음 행동을 글의 앞부분에 먼저 담습니다.</p></div></div>
-          <div className="signal-item"><span className="signal-number">03</span><div><strong>공식 안내로 확인</strong><p>최신 기준은 원문과 상담 창구에서 다시 확인하세요.</p></div></div>
-        </div>
-      </section>
-
-      <section className="featured-section">
-        <div className="container section-heading-row"><div><span className="section-kicker">이번 주의 중심 글</span><h2>지금 알아두면 좋은 것</h2><p className="section-deck">조건을 확인하고 다음 행동을 정하기 전에, 핵심부터 읽어보세요.</p></div><Link href="/category/welfare" className="section-link">전체 글 보기 <ArrowRight size={16} /></Link></div>
-        <div className="container featured-grid">
-          <Link href={`/article/${featured.slug}`} className="featured-card">
-            <div className="featured-card__visual featured-card__visual--file"><div className="featured-file-sheet"><div className="featured-file-sheet__head"><span>이번 주 생활표지</span><strong>01</strong></div><FileText size={29} /><p>공식 기준을 확인하기 전,<br />먼저 준비할 내용을 정리합니다.</p><div className="featured-file-sheet__rules"><i /><i /><i /></div><span className="featured-file-sheet__stamp">확인 순서 안내</span></div><span className="image-note">생활표지 01</span></div>
-            <div className="featured-card__content"><div className="featured-file-meta"><CategoryLabel slug={featured.category} /><span>업데이트 {featured.updated}</span><span>공식 자료 확인</span></div><h3>{featured.title}</h3><p>{featured.excerpt}</p><span className="read-more">이 글 읽기 <ArrowRight size={16} /></span></div>
-          </Link>
-          <aside className="featured-aside"><div className="aside-note"><Sparkles size={18} /><p>정보를 읽을 때는 <strong>‘언제 기준인지’</strong>와 <strong>‘어디에 문의할지’</strong>를 함께 확인해 보세요.</p></div><div className="aside-list"><span className="section-kicker">함께 읽기</span>{supportingArticles.slice(0, 2).map((article) => <Link key={article.slug} href={`/article/${article.slug}`} className="mini-article"><div><CategoryLabel slug={article.category} /><h4>{article.title}</h4><span><Clock3 size={13} /> {article.readingTime} · {article.updated}</span></div><ChevronRight size={18} /></Link>)}</div></aside>
-        </div>
-      </section>
-
-      <section className="category-section container">
-        <div className="section-heading-row"><div><span className="section-kicker">주제별 인덱스</span><h2>내 생활에 맞는 서랍</h2></div><span className="section-caption">다섯 가지 주제로 차곡차곡</span></div>
-        <div className="category-grid">{categories.map((category, index) => <Link key={category.slug} href={`/category/${category.slug}`} className={`category-card category-card--${index + 1}`} style={{ "--category-accent": category.accent } as CSSProperties}><div className="category-card__pattern"><Compass size={26} /></div><div className="category-card__veil" /><div className="category-card__file">{category.eyebrow} · 생활표지</div><div className="category-card__copy"><span>{category.eyebrow}</span><h3>{category.label}</h3><p>{category.description}</p><div className="category-card__details"><span>읽을 글 {articles.filter((article) => article.category === category.slug).length}개</span><span>공식 안내 확인</span></div><span className="category-arrow"><ArrowRight size={17} /></span></div></Link>)}</div>
-      </section>
-
-      <section className="latest-section">
-        <div className="container latest-layout"><div className="latest-intro"><span className="section-kicker">새로 정리한 글</span><h2>천천히 읽어도<br /><em>남는 정보</em></h2><p>당장 결론을 내리기보다, 내 상황에 맞는지 확인하는 데 도움이 되는 글을 모읍니다.</p><Link href="/search" className="text-link">모든 글 살펴보기 <ChevronRight size={16} /></Link></div><div className="latest-list">{supportingArticles.map((article, index) => <Link key={article.slug} href={`/article/${article.slug}`} className="latest-row"><span className="latest-index">0{index + 1}</span><div><CategoryLabel slug={article.category} /><h3>{article.title}</h3><p>{article.excerpt}</p></div><div className="latest-meta"><span><Clock3 size={14} /> {article.readingTime}</span><span>업데이트 {article.updated}</span><span className="verified-meta">공식 확인</span><ArrowRight size={17} /></div></Link>)}</div></div>
-      </section>
-
-      <section className="home-note container"><div className="note-mark"><FileCheck2 size={27} /></div><div><span className="section-kicker">정보를 이용하는 방법</span><h2>이곳의 글은 판단을 대신하지 않습니다.</h2><p>제도와 건강 정보는 개인의 조건과 시점에 따라 달라질 수 있습니다. 이 사이트는 이해를 돕는 출발점이며, 최종 기준은 각 기관의 최신 안내와 상담을 확인해 주세요.</p></div><Link href="/disclaimer" className="button button--outline">면책 안내 읽기 <ArrowRight size={16} /></Link></section>
     </>
   );
 }

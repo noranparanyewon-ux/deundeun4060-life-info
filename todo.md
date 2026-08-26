@@ -8,3 +8,10 @@
 - [x] Identify and prevent the mobile menu interaction that sends the page to the bottom instead of completing intended navigation.
 - [x] Reposition or hide the mobile floating help control so it does not overlap the Manus UI or obscure its arrow.
 - [x] Verify mobile navigation and viewport controls, then save and deliver the repair checkpoint.
+- [ ] Synchronize the shared project's latest code into the running preview and report the synced version.
+- [ ] Compare all required pages, navigation, semantic structure, and SEO files against the renewed AdSense information-site brief.
+- [ ] Remove any remaining platform-specific or unfinished visual elements and prepare a Cloudflare Pages Direct Upload package.
+- [ ] Build and verify the production package, robots, sitemap, metadata, mobile layout, and live links before delivery.
+- [x] Replace the promotional home hero with a concise archive header and prominent integrated search.
+- [x] Present all five categories as a clean portal grid and expose real starter articles in a dense latest-information card list.
+- [x] Verify the redesigned homepage at desktop and mobile widths, then save and deliver the updated checkpoint.
