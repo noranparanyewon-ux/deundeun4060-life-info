@@ -18,7 +18,7 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
       expect(article.title.trim()).not.toHaveLength(0);
       expect(article.excerpt.trim()).not.toHaveLength(0);
       expect(article.sections.length).toBeGreaterThan(0);
-      expect(article.image).toMatch(/^\/manus-storage\//);
+      expect(article.image).toBeUndefined();
       expect(article.canonicalPath).toBe(`/${article.category}/${article.slug}`);
       expect(article.source.href).toMatch(/^https?:\/\//);
       expect(article.verification.status).toBe("official-source-reviewed");
@@ -113,5 +113,11 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
     expect(viteConfig).toContain("process.env.VITE_BASE_PATH || \"/\"");
     expect(mainSource).toContain("<Router base={routerBase}>");
     expect(fallback).toContain("deundeun4060-life-info");
+  });
+
+  it("does not ship project-only manuscript storage image paths to GitHub Pages", () => {
+    expect(JSON.stringify(articles)).not.toContain("/manus-storage/");
+    const legacySource = readFileSync(new URL("./siteData.ts", import.meta.url), "utf8");
+    expect(legacySource).not.toContain("/manus-storage/");
   });
 });

@@ -78,4 +78,5 @@
 - [ ] Replace the Cloudflare Pages workflow with a GitHub Pages deployment workflow that needs no external deployment token.
 - [ ] Configure the static build for the GitHub Pages repository path while preserving custom-domain compatibility.
 - [ ] Verify GitHub Pages deployment and the KST 09:00/18:00 scheduled-publication workflow from the pushed repository.
+- [ ] Re-run the GitHub Pages workflow after repository enablement and verify the public URL serves the 12 launch articles.
 - [x] Document the GitHub and Cloudflare credentials and deployment steps required for the owner to enable automated releases after final verification.

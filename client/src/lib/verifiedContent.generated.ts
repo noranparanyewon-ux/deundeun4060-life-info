@@ -82,7 +82,6 @@ export const verifiedContent = {
       "canonicalPath": "/welfare/basic-livelihood-living-allowance",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-hero_a6a96565.png",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -153,7 +152,6 @@ export const verifiedContent = {
       "canonicalPath": "/welfare/senior-customized-care-service",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-hero_a6a96565.png",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -225,7 +223,6 @@ export const verifiedContent = {
       "canonicalPath": "/welfare/near-poverty-class-benefits",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-hero_a6a96565.png",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -294,7 +291,6 @@ export const verifiedContent = {
       "canonicalPath": "/pension/early-vs-delayed-national-pension",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-pension-editorial_a026a98e.jpg",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -364,7 +360,6 @@ export const verifiedContent = {
       "canonicalPath": "/pension/basic-pension-couple-reduction-rules",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-pension-editorial_a026a98e.jpg",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -433,7 +428,6 @@ export const verifiedContent = {
       "canonicalPath": "/pension/reverse-mortgage-conditions-amounts",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-pension-editorial_a026a98e.jpg",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -505,7 +499,6 @@ export const verifiedContent = {
       "canonicalPath": "/health/national-health-checkup-cancer-screening",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-health-editorial_80d63336.jpg",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -576,7 +569,6 @@ export const verifiedContent = {
       "canonicalPath": "/health/long-term-care-insurance-grades-application",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-health-editorial_80d63336.jpg",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -648,7 +640,6 @@ export const verifiedContent = {
       "canonicalPath": "/health/senior-denture-implant-health-insurance",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-health-editorial_80d63336.jpg",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -720,7 +711,6 @@ export const verifiedContent = {
       "canonicalPath": "/saving/mvno-senior-plan-self-activation",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-saving-editorial_d0d673d0.jpg",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -792,7 +782,6 @@ export const verifiedContent = {
       "canonicalPath": "/saving/energy-voucher-qualification-amounts",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-saving-editorial_d0d673d0.jpg",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -861,7 +850,6 @@ export const verifiedContent = {
       "canonicalPath": "/saving/carbon-neutral-points-energy-cashback",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
-      "image": "/manus-storage/deundeun4060-saving-editorial_d0d673d0.jpg",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",

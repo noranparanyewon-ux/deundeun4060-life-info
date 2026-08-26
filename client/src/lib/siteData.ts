@@ -29,7 +29,7 @@ export type Article = {
   publishedAt: string;
   canonicalPath: string;
   publication: "published";
-  image: string;
+  image?: string;
   links?: { label: string; href: string }[];
   source: { label: string; href: string };
   sources: { label: string; href: string; kind: "official-primary" }[];
@@ -50,7 +50,7 @@ export type LegacyArticle = {
   sections: ArticleSection[];
   readingTime: string;
   updated: string;
-  image: string;
+  image?: string;
   canonicalPath: string;
   source: { label: string; href: string };
   links: { label: string; href: string }[];
@@ -63,7 +63,6 @@ export const legacyDigitalArticles: LegacyArticle[] = [
     excerpt: "새 기기를 샀을 때는 잠금, 업데이트, 계정 복구 방법을 먼저 확인하면 분실이나 계정 문제에 대비하는 데 도움이 됩니다.",
     readingTime: "5분 읽기",
     updated: "2026. 08. 24.",
-    image: "/manus-storage/deundeun4060-digital-editorial_2021d8c0.jpg",
     canonicalPath: "/archive/digital/smartphone-security-checklist",
     intro: "이 글은 기존 디지털 자료를 보존한 안내입니다. 현재 사이트의 핵심 공개·예약 발행 체계에는 포함하지 않으며, 기기와 운영체제에 따라 메뉴 이름이 달라질 수 있으므로 실제 설정 화면과 공식 보안 안내를 함께 확인하세요.",
     sections: [
