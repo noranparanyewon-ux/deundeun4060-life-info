@@ -1,4 +1,5 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { getEditorialImage } from "./editorial-images.mjs";
 
 const manifestPath = new URL("../content/article-manifest.json", import.meta.url);
 const outputPath = new URL("../client/src/lib/verifiedContent.generated.ts", import.meta.url);
@@ -8,12 +9,21 @@ const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 
 const publicArticles = manifest.articles
   .filter((article) => article.publishedAt && new Date(article.publishedAt) <= now)
-  .map(({ verification, sources, ...article }) => ({
-    ...article,
-    publication: "published",
-    verification,
-    sources,
-  }));
+  .map(({ verification, sources, ...article }) => {
+    const editorialImage = getEditorialImage(article);
+
+    if (!editorialImage) {
+      throw new Error(`No editorial image mapping is available for ${article.slug}.`);
+    }
+
+    return {
+      ...article,
+      ...editorialImage,
+      publication: "published",
+      verification,
+      sources,
+    };
+  });
 
 if (publicArticles.some((article) => !article.publishedAt || new Date(article.publishedAt) > now)) {
   throw new Error("A future article was included in the public client payload.");

@@ -1,8 +1,8 @@
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { articles, categories, getArticle, getCategory, getLegacyDigitalArticle } from "./siteData";
+import { articles, categories, getArticle, getCategory, getLegacyDigitalArticle, withSiteBasePath } from "./siteData";
 
 const manifest = JSON.parse(readFileSync(new URL("../../../content/article-manifest.json", import.meta.url), "utf8"));
 const projectRoot = fileURLToPath(new URL("../../../", import.meta.url));
@@ -18,7 +18,9 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
       expect(article.title.trim()).not.toHaveLength(0);
       expect(article.excerpt.trim()).not.toHaveLength(0);
       expect(article.sections.length).toBeGreaterThan(0);
-      expect(article.image).toBeUndefined();
+      expect(article.image).toMatch(/^\/editorial\/[a-z0-9-]+\.svg$/);
+      expect(article.imageAlt.trim()).not.toHaveLength(0);
+      expect(existsSync(new URL(`../../public/${article.image.replace(/^\//, "")}`, import.meta.url))).toBe(true);
       expect(article.canonicalPath).toBe(`/${article.category}/${article.slug}`);
       expect(article.source.href).toMatch(/^https?:\/\//);
       expect(article.verification.status).toBe("official-source-reviewed");
@@ -115,8 +117,11 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
     expect(fallback).toContain("deundeun4060-life-info");
   });
 
-  it("does not ship project-only manuscript storage image paths to GitHub Pages", () => {
+  it("uses base-path-safe editorial images without project-only storage paths", () => {
     expect(JSON.stringify(articles)).not.toContain("/manus-storage/");
+    expect(articles.every((article) => article.image.startsWith("/editorial/"))).toBe(true);
+    expect(withSiteBasePath("editorial/example.svg", "/deundeun4060-life-info/")).toBe("/deundeun4060-life-info/editorial/example.svg");
+    expect(withSiteBasePath("/editorial/example.svg", "/")).toBe("/editorial/example.svg");
     const legacySource = readFileSync(new URL("./siteData.ts", import.meta.url), "utf8");
     expect(legacySource).not.toContain("/manus-storage/");
   });

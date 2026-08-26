@@ -82,6 +82,8 @@ export const verifiedContent = {
       "canonicalPath": "/welfare/basic-livelihood-living-allowance",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/basic-livelihood-living-allowance.svg",
+      "imageAlt": "생계급여 신청 전 서류와 확인 목록을 살펴보는 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -152,6 +154,8 @@ export const verifiedContent = {
       "canonicalPath": "/welfare/senior-customized-care-service",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/senior-customized-care-service.svg",
+      "imageAlt": "돌봄서비스 상담 일정과 집 모양 안내 카드를 그린 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -223,6 +227,8 @@ export const verifiedContent = {
       "canonicalPath": "/welfare/near-poverty-class-benefits",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/near-poverty-class-benefits.svg",
+      "imageAlt": "확인서와 공공요금 고지서를 함께 살펴보는 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -291,6 +297,8 @@ export const verifiedContent = {
       "canonicalPath": "/pension/early-vs-delayed-national-pension",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/early-vs-delayed-national-pension.svg",
+      "imageAlt": "연금 수령 시점을 비교하는 달력과 시계 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -360,6 +368,8 @@ export const verifiedContent = {
       "canonicalPath": "/pension/basic-pension-couple-reduction-rules",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/basic-pension-couple-reduction-rules.svg",
+      "imageAlt": "부부의 기초연금 확인 자료와 생활 기록을 그린 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -428,6 +438,8 @@ export const verifiedContent = {
       "canonicalPath": "/pension/reverse-mortgage-conditions-amounts",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/reverse-mortgage-conditions-amounts.svg",
+      "imageAlt": "주택연금 상담 전 집과 확인 문서를 살펴보는 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -499,6 +511,8 @@ export const verifiedContent = {
       "canonicalPath": "/health/national-health-checkup-cancer-screening",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/national-health-checkup-cancer-screening.svg",
+      "imageAlt": "건강검진 일정과 검진 기록을 확인하는 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -569,6 +583,8 @@ export const verifiedContent = {
       "canonicalPath": "/health/long-term-care-insurance-grades-application",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/long-term-care-insurance-grades-application.svg",
+      "imageAlt": "장기요양 신청 절차와 방문 돌봄 안내를 상징하는 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -640,6 +656,8 @@ export const verifiedContent = {
       "canonicalPath": "/health/senior-denture-implant-health-insurance",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/senior-denture-implant-health-insurance.svg",
+      "imageAlt": "치과 건강보험 적용 여부를 확인하는 치아와 문서 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -711,6 +729,8 @@ export const verifiedContent = {
       "canonicalPath": "/saving/mvno-senior-plan-self-activation",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/mvno-senior-plan-self-activation.svg",
+      "imageAlt": "알뜰폰 요금제 비교 전 휴대전화와 유심 카드를 확인하는 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -782,6 +802,8 @@ export const verifiedContent = {
       "canonicalPath": "/saving/energy-voucher-qualification-amounts",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/energy-voucher-qualification-amounts.svg",
+      "imageAlt": "에너지바우처 신청 전 주거와 에너지 이용 정보를 살펴보는 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",
@@ -850,6 +872,8 @@ export const verifiedContent = {
       "canonicalPath": "/saving/carbon-neutral-points-energy-cashback",
       "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
+      "image": "editorial/carbon-neutral-points-energy-cashback.svg",
+      "imageAlt": "에너지 사용량과 절감 실적을 기록하는 계량기와 잎사귀 일러스트",
       "verification": {
         "status": "official-source-reviewed",
         "reviewedAt": "2026-08-27",

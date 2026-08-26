@@ -29,7 +29,8 @@ export type Article = {
   publishedAt: string;
   canonicalPath: string;
   publication: "published";
-  image?: string;
+  image: string;
+  imageAlt: string;
   links?: { label: string; href: string }[];
   source: { label: string; href: string };
   sources: { label: string; href: string; kind: "official-primary" }[];
@@ -40,7 +41,12 @@ const categoryOrder: CategorySlug[] = ["welfare", "pension", "health", "saving"]
 const categoryMeta = verifiedContent.categoryMeta as Record<CategorySlug, Omit<Category, "slug">>;
 
 export const categories: Category[] = categoryOrder.map((slug) => ({ slug, ...categoryMeta[slug] }));
-export const articles = verifiedContent.articles as unknown as Article[];
+export const withSiteBasePath = (assetPath: string, basePath = import.meta.env.BASE_URL) => `${basePath.replace(/\/?$/, "/")}${assetPath.replace(/^\/+/, "")}`;
+
+export const articles = (verifiedContent.articles as unknown as Article[]).map((article) => ({
+  ...article,
+  image: withSiteBasePath(article.image),
+}));
 
 export type LegacyArticle = {
   slug: string;
