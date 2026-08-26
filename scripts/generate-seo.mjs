@@ -12,7 +12,7 @@ const staticLastmod = process.env.SITE_UPDATED_AT || "2026-08-27";
 
 const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 const staticRoutes = ["/", "/category/welfare", "/category/pension", "/category/health", "/category/saving", "/about", "/contact", "/privacy", "/disclaimer"];
-const publishedArticles = manifest.articles.filter((article) => article.publication === "published" || new Date(article.publishedAt) <= now);
+const publishedArticles = manifest.articles.filter((article) => article.publishedAt && new Date(article.publishedAt) <= now);
 const routes = [
   ...staticRoutes.map((route) => ({ route, lastmod: staticLastmod })),
   ...publishedArticles.map((article) => ({ route: article.canonicalPath, lastmod: article.reviewedAt })),

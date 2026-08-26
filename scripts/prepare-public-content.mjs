@@ -13,7 +13,7 @@ const imagesByCategory = {
 };
 
 const publicArticles = manifest.articles
-  .filter((article) => article.publication === "published" || new Date(article.publishedAt) <= now)
+  .filter((article) => article.publishedAt && new Date(article.publishedAt) <= now)
   .map(({ verification, sources, ...article }) => ({
     ...article,
     publication: "published",

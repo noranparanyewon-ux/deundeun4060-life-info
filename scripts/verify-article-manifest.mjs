@@ -163,7 +163,7 @@ manifest.articles = manifest.articles.map((article) => {
     source: { label, href },
     sources: [{ label, href, kind: "official-primary" }],
     canonicalPath: `/${article.category}/${article.slug}`,
-    publishedAt: published ? "2026-08-27T00:00:00.000Z" : scheduleBySlug.get(article.slug),
+    publishedAt: published ? "2026-08-26T00:00:00.000Z" : scheduleBySlug.get(article.slug),
     reviewedAt,
     updated: "2026. 08. 27.",
     verification: {

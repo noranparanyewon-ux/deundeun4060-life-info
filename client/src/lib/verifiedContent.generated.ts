@@ -80,7 +80,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/welfare/basic-livelihood-living-allowance",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-hero_a6a96565.png",
       "verification": {
@@ -151,7 +151,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/welfare/senior-customized-care-service",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-hero_a6a96565.png",
       "verification": {
@@ -223,7 +223,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/welfare/near-poverty-class-benefits",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-hero_a6a96565.png",
       "verification": {
@@ -292,7 +292,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/pension/early-vs-delayed-national-pension",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-pension-editorial_a026a98e.jpg",
       "verification": {
@@ -362,7 +362,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/pension/basic-pension-couple-reduction-rules",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-pension-editorial_a026a98e.jpg",
       "verification": {
@@ -431,7 +431,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/pension/reverse-mortgage-conditions-amounts",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-pension-editorial_a026a98e.jpg",
       "verification": {
@@ -503,7 +503,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/health/national-health-checkup-cancer-screening",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-health-editorial_80d63336.jpg",
       "verification": {
@@ -574,7 +574,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/health/long-term-care-insurance-grades-application",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-health-editorial_80d63336.jpg",
       "verification": {
@@ -646,7 +646,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/health/senior-denture-implant-health-insurance",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-health-editorial_80d63336.jpg",
       "verification": {
@@ -718,7 +718,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/saving/mvno-senior-plan-self-activation",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-saving-editorial_d0d673d0.jpg",
       "verification": {
@@ -790,7 +790,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/saving/energy-voucher-qualification-amounts",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-saving-editorial_d0d673d0.jpg",
       "verification": {
@@ -859,7 +859,7 @@ export const verifiedContent = {
       "readingTime": "약 5분",
       "updated": "2026. 08. 27.",
       "canonicalPath": "/saving/carbon-neutral-points-energy-cashback",
-      "publishedAt": "2026-08-27T00:00:00.000Z",
+      "publishedAt": "2026-08-26T00:00:00.000Z",
       "reviewedAt": "2026-08-27",
       "image": "/manus-storage/deundeun4060-saving-editorial_d0d673d0.jpg",
       "verification": {
