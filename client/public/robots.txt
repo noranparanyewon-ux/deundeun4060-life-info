@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://example.test/sitemap.xml
+Sitemap: https://noranparanyewon-ux.github.io/deundeun4060-life-info/sitemap.xml

@@ -91,3 +91,6 @@
 - [x] After the image release, verify cache-busted public GitHub Pages home, category, and article routes load the new illustrations.
 - [x] Confirm loaded image dimensions on the cache-busted public home and category routes, then record all three live-route checks in the QA log.
 - [x] Update image regression assertions so they accept the configured GitHub Pages base path, then rerun the failed deployment workflow.
+- [x] Redesign the monthly feature cover with a stronger editorial hierarchy, distinct issue treatment, and a more prominent article entry point.
+- [x] Preserve slider controls, keyboard and swipe behavior, semantic labels, and source-verification cues in the redesigned feature cover.
+- [ ] Verify the new feature cover on desktop and mobile, run type/test/build checks, and confirm the GitHub Pages release.
