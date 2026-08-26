@@ -66,8 +66,13 @@
 - [x] Complete and document a record-by-record editorial QA pass over all 40 manifest entries before their scheduled public release.
 - [x] Add canonical paths, UTC publish timestamps, truthful update dates, verification state, and official-source metadata for all 40 records.
 - [ ] Connect the selected GitHub workflow to a repository and Cloudflare Pages secrets, then verify a real deployment before treating automatic releases as active.
-- [ ] Connect the current project to the user-authorized GitHub repository and push the checkpointed automation workflow.
-- [ ] Add the user-provided GitHub repository as the project remote and push the verified 40-article release branch.
-- [ ] Revalidate refreshed GitHub repository access and push the verified release after permission propagation.
-- [ ] Push the verified release to the user-approved public repository without committing deployment credentials or secrets.
+- [x] Connect the current project to the user-authorized GitHub repository and push the checkpointed automation workflow.
+- [x] Add the user-provided GitHub repository as the project remote and push the verified 40-article release branch.
+- [x] Revalidate refreshed GitHub repository access and push the verified release after permission propagation.
+- [x] Push the verified release to the user-approved public repository without committing deployment credentials or secrets.
+- [x] Reconfigure the Manus GitHub connector with the user-authorized repository and verify repository write access.
+- [x] Synchronize the checkpointed project to the user-created repository through the reauthorized direct GitHub push path.
+- [x] Refresh the GitHub authorization and retry pushing the verified release after reconnection.
+- [ ] Verify the reconnected GitHub token can write to the repository and push the checkpointed release branch.
+- [ ] Fix the GitHub Actions pnpm setup failure and re-run the published workflow after Cloudflare credentials are available.
 - [x] Document the GitHub and Cloudflare credentials and deployment steps required for the owner to enable automated releases after final verification.
