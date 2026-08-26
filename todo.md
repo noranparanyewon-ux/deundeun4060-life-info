@@ -55,3 +55,15 @@
 - [x] Replace the nonstandard section wording, prevent awkward Korean word splits in mobile cards, and preserve readable title wrapping.
 - [x] Check site-owned versus platform-owned badge behavior and remove only controls that originate in site code.
 - [x] Verify corrected copy and card layout on mobile and desktop, then save the correction checkpoint.
+- [x] Apply the chosen four-category scope to the actual site data, navigation, archives, routes, and sitemap generation; preserve existing digital material outside the primary navigation.
+- [x] Verify every time-sensitive welfare, pension, health, and savings figure against current official sources before publishing any content.
+- [x] Design 12 immediate-publication records and 28 scheduled records with separate status, publication time, source, and update-date fields.
+- [ ] Implement an owner-managed twice-daily publication schedule only after deployment and a confirmed Korea-time schedule choice.
+- [x] Generate valid public archives, article pages, internal links, sitemap entries, and schedule-management records without placeholder content.
+- [x] Convert the supplied sitemap idea into an automatically generated, valid XML sitemap that contains only currently published canonical URLs.
+- [x] Create 12 verified public records and 28 Korea-time 09:00/18:00 queued records that implement the chosen staged-publication policy.
+- [x] Audit and replace every generated draft’s non-authoritative, tracking, placeholder, or unverified source reference with an official primary source before publication.
+- [x] Complete and document a record-by-record editorial QA pass over all 40 manifest entries before their scheduled public release.
+- [x] Add canonical paths, UTC publish timestamps, truthful update dates, verification state, and official-source metadata for all 40 records.
+- [ ] Connect the selected GitHub workflow to a repository and Cloudflare Pages secrets, then verify a real deployment before treating automatic releases as active.
+- [x] Document the GitHub and Cloudflare credentials and deployment steps required for the owner to enable automated releases after final verification.

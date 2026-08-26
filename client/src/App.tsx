@@ -11,6 +11,7 @@ import CategoryPage from "./pages/CategoryPage";
 import ArticlePage from "./pages/ArticlePage";
 import InfoPage from "./pages/InfoPage";
 import SearchPage from "./pages/SearchPage";
+import LegacyDigitalPage from "./pages/LegacyDigitalPage";
 import NotFound from "./pages/NotFound";
 import { siteDescription, siteName } from "./lib/siteData";
 
@@ -23,10 +24,11 @@ const pageMeta: Record<string, { title: string; description: string }> = {
   "/404": { title: `페이지를 찾을 수 없음 | ${siteName}`, description: "요청한 주소를 찾을 수 없습니다. 든든한 4060 생활정보의 홈과 주제별 글을 확인해 보세요." },
 };
 
-export function SEO({ title, description }: { title?: string; description?: string }) {
+export function SEO({ title, description, canonicalPath }: { title?: string; description?: string; canonicalPath?: string }) {
   const [location] = useLocation();
   useEffect(() => {
     const normalizedPath = location.split("?")[0];
+    const canonicalRoute = canonicalPath ?? normalizedPath;
     const fallback = pageMeta[normalizedPath] ?? { title: siteName, description: siteDescription };
     const resolvedTitle = title ?? fallback.title;
     const resolvedDescription = description ?? fallback.description;
@@ -49,7 +51,7 @@ export function SEO({ title, description }: { title?: string; description?: stri
     setMeta("og:title", resolvedTitle, true);
     setMeta("og:description", resolvedDescription, true);
     setMeta("og:type", "website", true);
-    setMeta("og:url", `${window.location.origin}${normalizedPath}`, true);
+    setMeta("og:url", `${window.location.origin}${canonicalRoute}`, true);
     setMeta("twitter:card", "summary_large_image");
 
     let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
@@ -58,8 +60,8 @@ export function SEO({ title, description }: { title?: string; description?: stri
       canonical.rel = "canonical";
       document.head.appendChild(canonical);
     }
-    canonical.href = `${window.location.origin}${normalizedPath}`;
-  }, [description, location, title]);
+    canonical.href = `${window.location.origin}${canonicalRoute}`;
+  }, [canonicalPath, description, location, title]);
   return null;
 }
 
@@ -117,13 +119,12 @@ function Header() {
             <Link href="/category/pension" onClick={closeMenu} className={location === "/category/pension" ? "is-active" : ""}>연금</Link>
             <Link href="/category/health" onClick={closeMenu} className={location === "/category/health" ? "is-active" : ""}>건강</Link>
             <Link href="/category/saving" onClick={closeMenu} className={location === "/category/saving" ? "is-active" : ""}>생활비</Link>
-            <Link href="/category/digital" onClick={closeMenu} className={location === "/category/digital" ? "is-active" : ""}>디지털</Link>
             <Link href="/about" onClick={closeMenu} className={location === "/about" ? "is-active" : ""}>사이트 소개</Link>
           </div>
           <div className="mobile-menu-panel">
             <div className="mobile-menu-panel__intro"><span>빠른 메뉴</span><strong>필요한 정보를<br />바로 찾아보세요.</strong></div>
             <form className="mobile-menu-search" onSubmit={onSearch} role="search"><Search size={19} aria-hidden="true" /><input aria-label="메뉴에서 사이트 글 검색" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="예: 연금, 건강검진, 스마트폰" /><button type="submit">찾기</button></form>
-            <div className="mobile-menu-group"><span>주제별 정보</span><Link href="/" onClick={closeMenu}><i>00</i>홈 <ChevronRight size={17} /></Link><Link href="/category/welfare" onClick={closeMenu}><i>01</i>정부지원·복지 <ChevronRight size={17} /></Link><Link href="/category/pension" onClick={closeMenu}><i>02</i>연금·노후준비 <ChevronRight size={17} /></Link><Link href="/category/health" onClick={closeMenu}><i>03</i>건강생활 <ChevronRight size={17} /></Link><Link href="/category/saving" onClick={closeMenu}><i>04</i>생활비 절약 <ChevronRight size={17} /></Link><Link href="/category/digital" onClick={closeMenu}><i>05</i>스마트폰·디지털 활용 <ChevronRight size={17} /></Link></div>
+            <div className="mobile-menu-group"><span>주제별 정보</span><Link href="/" onClick={closeMenu}><i>00</i>홈 <ChevronRight size={17} /></Link><Link href="/category/welfare" onClick={closeMenu}><i>01</i>정부지원·복지 <ChevronRight size={17} /></Link><Link href="/category/pension" onClick={closeMenu}><i>02</i>연금·노후준비 <ChevronRight size={17} /></Link><Link href="/category/health" onClick={closeMenu}><i>03</i>건강생활 <ChevronRight size={17} /></Link><Link href="/category/saving" onClick={closeMenu}><i>04</i>생활비 절약 <ChevronRight size={17} /></Link></div>
             <div className="mobile-menu-group mobile-menu-group--guide"><span>사이트 안내</span><Link href="/about" onClick={closeMenu}>우리가 정리하는 기준 <ChevronRight size={17} /></Link><Link href="/contact" onClick={closeMenu}>문의와 정정 요청 <ChevronRight size={17} /></Link><Link href="/privacy" onClick={closeMenu}>개인정보처리방침 <ChevronRight size={17} /></Link><Link href="/disclaimer" onClick={closeMenu}>이용안내 및 면책조항 <ChevronRight size={17} /></Link></div>
           </div>
         </nav>
@@ -153,7 +154,9 @@ function Footer() {
           <span className="footer-label">둘러보기</span>
           <Link href="/category/welfare">정부지원·복지</Link>
           <Link href="/category/pension">연금·노후준비</Link>
-          <Link href="/category/digital">디지털 활용</Link>
+          <Link href="/category/health">건강생활</Link>
+          <Link href="/category/saving">생활비 절약</Link>
+          <Link href="/archive/digital/smartphone-security-checklist">기존 디지털 자료</Link>
         </div>
         <div className="footer-links">
           <span className="footer-label">안내</span>
@@ -187,6 +190,8 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/category/:slug" component={CategoryPage} />
       <Route path="/article/:slug" component={ArticlePage} />
+      <Route path="/archive/digital/:slug" component={LegacyDigitalPage} />
+      <Route path="/:category/:slug" component={ArticlePage} />
       <Route path="/search" component={SearchPage} />
       <Route path="/about" component={() => <InfoPage type="about" />} />
       <Route path="/contact" component={() => <InfoPage type="contact" />} />

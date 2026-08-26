@@ -4,13 +4,12 @@ import { ArrowRight, ChevronLeft, ChevronRight, Clock3, Compass, FileText, Spark
 import { Link } from "wouter";
 import { articles, getCategory } from "../lib/siteData";
 
-const featured = articles.find((article) => article.featured) ?? articles[0];
+const featured = articles[0]!;
 const welfare = articles.find((article) => article.category === "welfare") ?? featured;
 const pension = articles.find((article) => article.category === "pension") ?? featured;
 const health = articles.find((article) => article.category === "health") ?? featured;
 const saving = articles.find((article) => article.category === "saving") ?? featured;
-const digital = articles.find((article) => article.category === "digital") ?? featured;
-const featureStories = [featured, pension, health, saving, digital];
+const featureStories = [featured, pension, health, saving, articles[1] ?? featured];
 
 function CategoryLabel({ slug }: { slug: string }) {
   const category = getCategory(slug);
@@ -18,7 +17,7 @@ function CategoryLabel({ slug }: { slug: string }) {
 }
 
 function MagazineCard({ article, featuredCard = false, visual = "paper" }: { article: typeof featured; featuredCard?: boolean; visual?: "paper" | "line" | "sun" | "grid" }) {
-  return <Link href={`/article/${article.slug}`} className={`magazine-card ${featuredCard ? "magazine-card--feature" : ""}`}>
+  return <Link href={article.canonicalPath} className={`magazine-card ${featuredCard ? "magazine-card--feature" : ""}`}>
     <div className={`magazine-card__visual magazine-card__visual--${visual}`}>
       {article.image ? <><img src={article.image} alt="생활 정보 글을 상징하는 편집 사진" /><span className="magazine-card__image-label">생활표지 · 공식 안내 확인</span></> : <><span className="magazine-card__folio">생활 기록 · {article.updated}</span><span className="magazine-card__symbol">{visual === "sun" ? "○" : visual === "grid" ? "□" : visual === "line" ? "—" : "◇"}</span><span className="magazine-card__visual-note">{getCategory(article.category)?.eyebrow} · 확인표</span></>}
     </div>
@@ -50,7 +49,7 @@ function FeaturedStorySlider() {
   return <section className="webzine-feature container" aria-labelledby="feature-title">
     <div className="webzine-feature__label"><span>이달의 든든한 특집 이야기</span><span>특집 {String(activeIndex + 1).padStart(2, "0")}</span></div>
     <div className="featured-slider" role="region" aria-roledescription="carousel" aria-label="이달의 든든한 특집 스토리" tabIndex={0} onKeyDown={(event) => { if (event.key === "ArrowLeft") moveTo(activeIndex - 1); if (event.key === "ArrowRight") moveTo(activeIndex + 1); }} onTouchStart={(event) => { swipeStartX.current = event.touches[0]?.clientX ?? null; }} onTouchEnd={(event) => onSwipeEnd(event.changedTouches[0]?.clientX ?? 0)}>
-      <Link href={`/article/${activeStory.slug}`} className="webzine-cover" aria-label={`${activeStory.title} 읽기`}>
+      <Link href={activeStory.canonicalPath} className="webzine-cover" aria-label={`${activeStory.title} 읽기`}>
         <div className="webzine-cover__image"><img src={activeStory.image} alt="생활 정보 글을 상징하는 편집 사진" /><span className="webzine-cover__issue">{String(activeIndex + 1).padStart(2, "0")}</span><span className="webzine-cover__file-label">생활표지 {String(activeIndex + 1).padStart(2, "0")} · 확인용 특집</span></div>
         <div className="webzine-cover__copy"><CategoryLabel slug={activeStory.category} /><span className="webzine-cover__status">업데이트 {activeStory.updated} · 공식 안내 확인</span><h1 id="feature-title">{activeStory.title}</h1><p>{activeStory.excerpt}</p><div className="webzine-cover__foot"><span>먼저 확인할 것: 대상 · 시기 · 담당 기관</span><span>조건부터 읽기 <ArrowRight size={17} /></span></div></div>
       </Link>
@@ -61,7 +60,7 @@ function FeaturedStorySlider() {
 }
 
 function LatestArticleStrip() {
-  return <section className="home-recent container" aria-labelledby="latest-articles-title"><div className="home-recent__head"><div><span>최근 발행 글</span><h2 id="latest-articles-title">최신 아티클</h2></div><Link href="/search">전체 보기 <ArrowRight size={15} /></Link></div><div className="home-recent__grid">{articles.slice(0, 4).map((article) => <Link key={article.slug} href={`/article/${article.slug}`} className="home-recent-card"><img src={article.image} alt="" /><div><CategoryLabel slug={article.category} /><h3>{article.title}</h3></div></Link>)}</div></section>;
+  return <section className="home-recent container" aria-labelledby="latest-articles-title"><div className="home-recent__head"><div><span>최근 발행 글</span><h2 id="latest-articles-title">최신 아티클</h2></div><Link href="/search">전체 보기 <ArrowRight size={15} /></Link></div><div className="home-recent__grid">{articles.slice(0, 4).map((article) => <Link key={article.slug} href={article.canonicalPath} className="home-recent-card"><img src={article.image} alt="" /><div><CategoryLabel slug={article.category} /><h3>{article.title}</h3></div></Link>)}</div></section>;
 }
 
 export default function Home() {
@@ -86,8 +85,8 @@ export default function Home() {
       </section>
 
       <section className="webzine-corner container">
-        <CornerHead issue="생활 코너 03" title="오늘의 생활 편집" description="살림의 흐름을 정리하고, 디지털 생활을 안전하게 이어가는 작은 방법들입니다." href="/search" />
-        <div className="webzine-grid webzine-grid--three"><MagazineCard article={saving} visual="grid" /><MagazineCard article={digital} visual="line" /><Link href="/about" className="webzine-principle"><Sparkles size={22} /><span>편집 노트</span><h3>정보를 고르는 기준</h3><p>개인의 조건을 단정하지 않고, 공식 안내를 다시 확인할 수 있도록 정리합니다.</p><span>운영 원칙 보기 <ArrowRight size={15} /></span></Link></div>
+        <CornerHead issue="생활 코너 03" title="오늘의 생활 편집" description="살림의 흐름을 정리하고, 건강과 생활비를 함께 점검하는 작은 방법들입니다." href="/search" />
+        <div className="webzine-grid webzine-grid--three"><MagazineCard article={saving} visual="grid" /><MagazineCard article={health} visual="line" /><Link href="/about" className="webzine-principle"><Sparkles size={22} /><span>편집 노트</span><h3>정보를 고르는 기준</h3><p>개인의 조건을 단정하지 않고, 공식 안내를 다시 확인할 수 있도록 정리합니다.</p><span>운영 원칙 보기 <ArrowRight size={15} /></span></Link></div>
       </section>
 
       <section className="webzine-footer-note container"><FileText size={20} /><p>이 사이트는 40~60대의 생활 속 선택을 돕기 위한 정보 참고서입니다. 제도·건강·금융의 최종 기준은 관련 기관의 최신 안내를 확인해 주세요.</p><Link href="/disclaimer">이용안내 <ArrowRight size={15} /></Link></section>

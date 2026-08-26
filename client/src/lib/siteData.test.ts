@@ -1,11 +1,16 @@
+import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { articles, categories, getArticle, getCategory } from "./siteData";
+import { articles, categories, getArticle, getCategory, getLegacyDigitalArticle } from "./siteData";
+
+const manifest = JSON.parse(readFileSync(new URL("../../../content/article-manifest.json", import.meta.url), "utf8"));
+const projectRoot = fileURLToPath(new URL("../../../", import.meta.url));
 
 describe("든든한 4060 생활정보 콘텐츠 구조", () => {
-  it("uses five named categories and real starter articles without empty reading paths", () => {
-    expect(categories.map((category) => category.slug)).toEqual(["welfare", "pension", "health", "saving", "digital"]);
-    expect(articles).toHaveLength(5);
+  it("uses four focused categories and exposes only the 12 reviewed launch articles", () => {
+    expect(categories.map((category) => category.slug)).toEqual(["welfare", "pension", "health", "saving"]);
+    expect(articles).toHaveLength(12);
 
     for (const article of articles) {
       expect(getCategory(article.category)).toBeDefined();
@@ -14,13 +19,65 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
       expect(article.excerpt.trim()).not.toHaveLength(0);
       expect(article.sections.length).toBeGreaterThan(0);
       expect(article.image).toMatch(/^\/manus-storage\//);
+      expect(article.canonicalPath).toBe(`/${article.category}/${article.slug}`);
+      expect(article.source.href).toMatch(/^https?:\/\//);
+      expect(article.verification.status).toBe("official-source-reviewed");
     }
+  });
+
+  it("keeps the 28 future records out of the browser payload and records Korea-time release slots in UTC", () => {
+    const published = manifest.articles.filter((article: { publication: string }) => article.publication === "published");
+    const scheduled = manifest.articles.filter((article: { publication: string }) => article.publication === "scheduled");
+    expect(manifest.articles).toHaveLength(40);
+    expect(published).toHaveLength(12);
+    expect(scheduled).toHaveLength(28);
+    expect(scheduled.every((article: { publishedAt: string }) => /T(00|09):00:00\.000Z$/.test(article.publishedAt))).toBe(true);
+    expect(scheduled.some((article: { slug: string }) => articles.some((publicArticle) => publicArticle.slug === article.slug))).toBe(false);
+  });
+
+  it("retains official-source metadata and removes draft-generation traces from all 40 records", () => {
+    const serialized = JSON.stringify(manifest);
+    expect(serialized).not.toMatch(/utm_|\]\(https?:\/\/|공식 원문 확인 필요|초안|첫 문단:|둘째 문단:|도입부:|제목:\s*.+카테고리:/);
+    for (const article of manifest.articles) {
+      expect(article.canonicalPath).toBe(`/${article.category}/${article.slug}`);
+      expect(article.reviewedAt).toBe("2026-08-27");
+      expect(article.verification.status).toBe("official-source-reviewed");
+      expect(article.sources).toHaveLength(1);
+      expect(article.sources[0].kind).toBe("official-primary");
+      expect(article.sources[0].href).toMatch(/^https?:\/\//);
+    }
+  });
+
+  it("generates a sitemap from published canonical URLs only", () => {
+    execFileSync(process.execPath, ["scripts/generate-seo.mjs"], {
+      cwd: projectRoot,
+      env: {
+        ...process.env,
+        PUBLISH_NOW: "2026-08-27T00:00:00.000Z",
+        SITE_URL: "https://example.test",
+      },
+    });
+    const sitemap = readFileSync(new URL("../../../client/public/sitemap.xml", import.meta.url), "utf8");
+    expect((sitemap.match(/<loc>/g) ?? [])).toHaveLength(21);
+    expect(sitemap).toContain("https://example.test/welfare/basic-livelihood-living-allowance");
+    expect(sitemap).not.toContain("/welfare/emergency-welfare-support-system");
+    expect(sitemap).not.toContain("/category/digital");
+    expect(sitemap).not.toContain("<priority>");
+    expect(sitemap).not.toContain("<changefreq>");
+  });
+
+  it("preserves the previous digital guide outside the primary content and crawler payload", () => {
+    const legacyDigital = getLegacyDigitalArticle("smartphone-security-checklist");
+    expect(legacyDigital?.canonicalPath).toBe("/archive/digital/smartphone-security-checklist");
+    expect(articles.some((article) => article.slug === legacyDigital?.slug)).toBe(false);
+    const appSource = readFileSync(new URL("../App.tsx", import.meta.url), "utf8");
+    expect(appSource).toContain('path="/archive/digital/:slug"');
   });
 
   it("includes a complete mobile quick-menu route set without placeholder anchors", () => {
     const appSource = readFileSync(new URL("../App.tsx", import.meta.url), "utf8");
     const styleSource = readFileSync(new URL("../index.css", import.meta.url), "utf8");
-    for (const route of ["/", "/category/welfare", "/category/pension", "/category/health", "/category/saving", "/category/digital", "/about", "/contact", "/privacy", "/disclaimer"]) {
+    for (const route of ["/", "/category/welfare", "/category/pension", "/category/health", "/category/saving", "/about", "/contact", "/privacy", "/disclaimer"]) {
       expect(appSource).toContain(`href="${route}"`);
     }
     expect(appSource).toContain("mobile-menu-panel");
@@ -32,9 +89,10 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
     expect(appSource).not.toContain('href="#"');
   });
 
-  it("ships a five-story feature slider with button, keyboard, and touch paths", () => {
+  it("ships a four-category feature slider with button, keyboard, and touch paths", () => {
     const homeSource = readFileSync(new URL("../pages/Home.tsx", import.meta.url), "utf8");
-    expect(homeSource).toContain("const featureStories = [featured, pension, health, saving, digital]");
+    expect(homeSource).toContain("const featureStories = [featured, pension, health, saving, articles[1] ?? featured]");
+    expect(homeSource).not.toContain('category === "digital"');
     expect(homeSource).toContain('aria-roledescription="carousel"');
     expect(homeSource).toContain('onTouchStart=');
     expect(homeSource).toContain('event.key === "ArrowLeft"');

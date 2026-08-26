@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://deundeun4060-life-info.manus.space/sitemap.xml
+Sitemap: https://deundeun4060-life-info.pages.dev/sitemap.xml

@@ -1,0 +1,46 @@
+name: Publish verified scheduled content
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 0 * * *"
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: deundeun4060-pages-production
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
+    env:
+      CLOUDFLARE_PROJECT_NAME: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+      SITE_URL: ${{ vars.SITE_URL }}
+    steps:
+      - name: Check out the published source
+        uses: actions/checkout@v6
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install dependencies
+        run: corepack enable && pnpm install --frozen-lockfile
+      - name: Recheck the article manifest and public payload
+        run: pnpm content:verify && pnpm content:audit && pnpm check && pnpm test
+      - name: Build public Pages assets
+        run: |
+          export SITE_URL="${SITE_URL:-https://${CLOUDFLARE_PROJECT_NAME}.pages.dev}"
+          pnpm build:cloudflare
+      - name: Deploy published assets to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist/public --project-name=${{ secrets.CLOUDFLARE_PROJECT_NAME }}
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
