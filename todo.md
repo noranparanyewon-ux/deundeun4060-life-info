@@ -58,14 +58,14 @@
 - [x] Apply the chosen four-category scope to the actual site data, navigation, archives, routes, and sitemap generation; preserve existing digital material outside the primary navigation.
 - [x] Verify every time-sensitive welfare, pension, health, and savings figure against current official sources before publishing any content.
 - [x] Design 12 immediate-publication records and 28 scheduled records with separate status, publication time, source, and update-date fields.
-- [ ] Implement an owner-managed twice-daily publication schedule only after deployment and a confirmed Korea-time schedule choice.
+- [x] Implement the confirmed twice-daily Korea-time publication schedule through GitHub Actions cron and public-content filtering.
 - [x] Generate valid public archives, article pages, internal links, sitemap entries, and schedule-management records without placeholder content.
 - [x] Convert the supplied sitemap idea into an automatically generated, valid XML sitemap that contains only currently published canonical URLs.
 - [x] Create 12 verified public records and 28 Korea-time 09:00/18:00 queued records that implement the chosen staged-publication policy.
 - [x] Audit and replace every generated draft’s non-authoritative, tracking, placeholder, or unverified source reference with an official primary source before publication.
 - [x] Complete and document a record-by-record editorial QA pass over all 40 manifest entries before their scheduled public release.
 - [x] Add canonical paths, UTC publish timestamps, truthful update dates, verification state, and official-source metadata for all 40 records.
-- [ ] Connect the selected GitHub workflow to a repository and Cloudflare Pages secrets, then verify a real deployment before treating automatic releases as active.
+- [x] Supersede the Cloudflare-specific workflow requirement with the verified GitHub Pages deployment that needs no external deployment token.
 - [x] Connect the current project to the user-authorized GitHub repository and push the checkpointed automation workflow.
 - [x] Add the user-provided GitHub repository as the project remote and push the verified 40-article release branch.
 - [x] Revalidate refreshed GitHub repository access and push the verified release after permission propagation.
@@ -73,10 +73,10 @@
 - [x] Reconfigure the Manus GitHub connector with the user-authorized repository and verify repository write access.
 - [x] Synchronize the checkpointed project to the user-created repository through the reauthorized direct GitHub push path.
 - [x] Refresh the GitHub authorization and retry pushing the verified release after reconnection.
-- [ ] Verify the reconnected GitHub token can write to the repository and push the checkpointed release branch.
-- [ ] Fix the GitHub Actions pnpm setup failure and re-run the published workflow after Cloudflare credentials are available.
-- [ ] Replace the Cloudflare Pages workflow with a GitHub Pages deployment workflow that needs no external deployment token.
-- [ ] Configure the static build for the GitHub Pages repository path while preserving custom-domain compatibility.
-- [ ] Verify GitHub Pages deployment and the KST 09:00/18:00 scheduled-publication workflow from the pushed repository.
-- [ ] Re-run the GitHub Pages workflow after repository enablement and verify the public URL serves the 12 launch articles.
+- [x] Verify the reconnected GitHub token can write to the repository and push the checkpointed release branch.
+- [x] Fix the GitHub Actions pnpm setup failure and re-run the workflow through the GitHub Pages deployment path.
+- [x] Replace the Cloudflare Pages workflow with a GitHub Pages deployment workflow that needs no external deployment token.
+- [x] Configure the static build for the GitHub Pages repository path while preserving custom-domain compatibility.
+- [x] Verify the successful GitHub Pages deployment and the configured KST 09:00/18:00 scheduled-publication workflow from the pushed repository.
+- [x] Re-run the GitHub Pages workflow after repository enablement and verify the public URL serves the 12 launch articles.
 - [x] Document the GitHub and Cloudflare credentials and deployment steps required for the owner to enable automated releases after final verification.
