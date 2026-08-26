@@ -89,3 +89,4 @@
 - [x] Inspect the GitHub Pages production build output for repository-prefixed editorial image URLs before release.
 - [x] Confirm a production bundle check resolves editorial image URLs under `/deundeun4060-life-info/editorial/`.
 - [ ] After the image release, verify cache-busted public GitHub Pages home, category, and article routes load the new illustrations.
+- [x] Update image regression assertions so they accept the configured GitHub Pages base path, then rerun the failed deployment workflow.

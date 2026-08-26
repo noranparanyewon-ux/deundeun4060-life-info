@@ -11,6 +11,7 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
   it("uses four focused categories and exposes only the 12 reviewed launch articles", () => {
     expect(categories.map((category) => category.slug)).toEqual(["welfare", "pension", "health", "saving"]);
     expect(articles).toHaveLength(12);
+    const imageBasePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
     for (const article of articles) {
       expect(getCategory(article.category)).toBeDefined();
@@ -18,9 +19,11 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
       expect(article.title.trim()).not.toHaveLength(0);
       expect(article.excerpt.trim()).not.toHaveLength(0);
       expect(article.sections.length).toBeGreaterThan(0);
-      expect(article.image).toMatch(/^\/editorial\/[a-z0-9-]+\.svg$/);
+      expect(article.image.startsWith(`${imageBasePath}editorial/`)).toBe(true);
+      const relativeImagePath = article.image.slice(imageBasePath.length);
+      expect(relativeImagePath).toMatch(/^editorial\/[a-z0-9-]+\.svg$/);
       expect(article.imageAlt.trim()).not.toHaveLength(0);
-      expect(existsSync(new URL(`../../public/${article.image.replace(/^\//, "")}`, import.meta.url))).toBe(true);
+      expect(existsSync(new URL(`../../public/${relativeImagePath}`, import.meta.url))).toBe(true);
       expect(article.canonicalPath).toBe(`/${article.category}/${article.slug}`);
       expect(article.source.href).toMatch(/^https?:\/\//);
       expect(article.verification.status).toBe("official-source-reviewed");
@@ -118,8 +121,9 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
   });
 
   it("uses base-path-safe editorial images without project-only storage paths", () => {
+    const imageBasePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
     expect(JSON.stringify(articles)).not.toContain("/manus-storage/");
-    expect(articles.every((article) => article.image.startsWith("/editorial/"))).toBe(true);
+    expect(articles.every((article) => article.image.startsWith(`${imageBasePath}editorial/`))).toBe(true);
     expect(withSiteBasePath("editorial/example.svg", "/deundeun4060-life-info/")).toBe("/deundeun4060-life-info/editorial/example.svg");
     expect(withSiteBasePath("/editorial/example.svg", "/")).toBe("/editorial/example.svg");
     const legacySource = readFileSync(new URL("./siteData.ts", import.meta.url), "utf8");
