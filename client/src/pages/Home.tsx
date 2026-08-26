@@ -1,6 +1,6 @@
 /* 생활 문서 아카이브 / 아이보리 종이 / 잉크 네이비 / 든든한 청록 / 편집 지면형 비대칭 레이아웃 */
 import type { CSSProperties } from "react";
-import { ArrowRight, Bookmark, Check, ChevronRight, Clock3, Compass, FileCheck2, Sparkles } from "lucide-react";
+import { ArrowRight, Bookmark, Check, ChevronRight, Clock3, Compass, FileCheck2, FileText, Sparkles } from "lucide-react";
 import { Link } from "wouter";
 import { articles, categories, getCategory } from "../lib/siteData";
 
@@ -18,6 +18,7 @@ export default function Home() {
       <section className="home-hero">
         <div className="container hero-layout">
           <div className="hero-copy">
+            <div className="hero-issue" aria-label="이번 호 생활 아카이브 정보"><span>생활 아카이브</span><strong>2026.08</strong><span>이번 주 정리</span></div>
             <p className="eyebrow"><span className="eyebrow-line" /> 오늘의 생활 아카이브</p>
             <h1>내일을 조금 더<br /><em>든든하게</em> 준비하는 법</h1>
             <p className="hero-lede">40~60대를 위한 복지, 연금, 건강, 생활 절약 정보를 한 번 더 확인하고 이해하기 쉽게 정리합니다.</p>
@@ -26,7 +27,7 @@ export default function Home() {
               <Link href="/about" className="text-link">우리가 정리하는 기준 <ChevronRight size={16} /></Link>
             </div>
             <div className="hero-proof"><span><Check size={15} /> 공식 자료 확인을 우선합니다</span><span><Check size={15} /> 읽기 쉬운 생활 언어로 씁니다</span></div>
-            <div className="hero-today"><span className="hero-today__label">오늘 확인할 수 있는 것</span><Link href="/category/welfare">받을 수 있는 지원 <ArrowRight size={14} /></Link><Link href="/category/digital">스마트폰 보안 <ArrowRight size={14} /></Link><Link href="/category/health">검진 전 준비 <ArrowRight size={14} /></Link></div>
+            <div className="hero-today"><span className="hero-today__label">오늘 바로 확인할 수 있는 것</span><Link href="/category/welfare">받을 수 있는 지원 <ArrowRight size={14} /></Link><Link href="/category/digital">스마트폰 보안 <ArrowRight size={14} /></Link><Link href="/category/health">검진 전 준비 <ArrowRight size={14} /></Link></div>
           </div>
           <div className="hero-visual" aria-label="생활 정보 아카이브를 상징하는 책상 이미지">
             <img src="/manus-storage/deundeun4060-hero_640c5466.png" alt="노트와 생활 서류가 놓인 햇살 드는 책상" />
@@ -45,10 +46,10 @@ export default function Home() {
       </section>
 
       <section className="featured-section">
-        <div className="container section-heading-row"><div><span className="section-kicker">이번 주의 중심 글</span><h2>지금 알아두면 좋은 것</h2></div><Link href="/category/welfare" className="section-link">전체 글 보기 <ArrowRight size={16} /></Link></div>
+        <div className="container section-heading-row"><div><span className="section-kicker">이번 주의 중심 글</span><h2>지금 알아두면 좋은 것</h2><p className="section-deck">조건을 확인하고 다음 행동을 정하기 전에, 핵심부터 읽어보세요.</p></div><Link href="/category/welfare" className="section-link">전체 글 보기 <ArrowRight size={16} /></Link></div>
         <div className="container featured-grid">
           <Link href={`/article/${featured.slug}`} className="featured-card">
-            <div className="featured-card__visual"><img src={featured.image} alt="정부지원 서류를 정리하는 책상" /><span className="image-note">생활표지 01</span></div>
+            <div className="featured-card__visual featured-card__visual--file"><div className="featured-file-sheet"><div className="featured-file-sheet__head"><span>이번 주 생활표지</span><strong>01</strong></div><FileText size={29} /><p>공식 기준을 확인하기 전,<br />먼저 준비할 내용을 정리합니다.</p><div className="featured-file-sheet__rules"><i /><i /><i /></div><span className="featured-file-sheet__stamp">확인 순서 안내</span></div><span className="image-note">생활표지 01</span></div>
             <div className="featured-card__content"><div className="featured-file-meta"><CategoryLabel slug={featured.category} /><span>업데이트 {featured.updated}</span><span>공식 자료 확인</span></div><h3>{featured.title}</h3><p>{featured.excerpt}</p><span className="read-more">이 글 읽기 <ArrowRight size={16} /></span></div>
           </Link>
           <aside className="featured-aside"><div className="aside-note"><Sparkles size={18} /><p>정보를 읽을 때는 <strong>‘언제 기준인지’</strong>와 <strong>‘어디에 문의할지’</strong>를 함께 확인해 보세요.</p></div><div className="aside-list"><span className="section-kicker">함께 읽기</span>{supportingArticles.slice(0, 2).map((article) => <Link key={article.slug} href={`/article/${article.slug}`} className="mini-article"><div><CategoryLabel slug={article.category} /><h4>{article.title}</h4><span><Clock3 size={13} /> {article.readingTime} · {article.updated}</span></div><ChevronRight size={18} /></Link>)}</div></aside>
@@ -57,7 +58,7 @@ export default function Home() {
 
       <section className="category-section container">
         <div className="section-heading-row"><div><span className="section-kicker">주제별 인덱스</span><h2>내 생활에 맞는 서랍</h2></div><span className="section-caption">다섯 가지 주제로 차곡차곡</span></div>
-        <div className="category-grid">{categories.map((category, index) => <Link key={category.slug} href={`/category/${category.slug}`} className={`category-card category-card--${index + 1}`} style={{ "--category-accent": category.accent } as CSSProperties}>{category.image ? <img src={category.image} alt="" /> : <div className="category-card__pattern"><Compass size={26} /></div>}<div className="category-card__veil" /><div className="category-card__file">{category.eyebrow} · 생활표지</div><div className="category-card__copy"><span>{category.eyebrow}</span><h3>{category.label}</h3><p>{category.description}</p><span className="category-arrow"><ArrowRight size={17} /></span></div></Link>)}</div>
+        <div className="category-grid">{categories.map((category, index) => <Link key={category.slug} href={`/category/${category.slug}`} className={`category-card category-card--${index + 1}`} style={{ "--category-accent": category.accent } as CSSProperties}><div className="category-card__pattern"><Compass size={26} /></div><div className="category-card__veil" /><div className="category-card__file">{category.eyebrow} · 생활표지</div><div className="category-card__copy"><span>{category.eyebrow}</span><h3>{category.label}</h3><p>{category.description}</p><div className="category-card__details"><span>읽을 글 {articles.filter((article) => article.category === category.slug).length}개</span><span>공식 안내 확인</span></div><span className="category-arrow"><ArrowRight size={17} /></span></div></Link>)}</div>
       </section>
 
       <section className="latest-section">

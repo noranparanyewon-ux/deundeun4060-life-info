@@ -1,0 +1,4 @@
+- [x] Analyze the supplied museum webzine, GDWEB showcase, and THOME reference pages for transferable layout and typographic cues.
+- [x] Identify which reference elements reinforce the approved 생활 문서 아카이브 design direction and reject incompatible patterns.
+- [x] Apply a cohesive homepage and navigation refinement that improves visual hierarchy without copying reference brands or content.
+- [x] Verify representative desktop and mobile routes, then document and deliver the update.
