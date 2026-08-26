@@ -62,6 +62,14 @@ export function SEO({ title, description }: { title?: string; description?: stri
   return null;
 }
 
+function ScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [location]);
+  return null;
+}
+
 function SiteMark({ compact = false }: { compact?: boolean }) {
   return (
     <Link href="/" className="site-mark" aria-label={`${siteName} 홈으로 이동`}>
@@ -179,6 +187,7 @@ function App() {
     <ErrorBoundary>
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
+          <ScrollToTop />
           <SEO />
           <Toaster />
           <Shell><Router /></Shell>

@@ -5,3 +5,6 @@
 - [x] Audit headline, body, navigation, card, metadata, and footer type scales against the supplied mobile screenshot.
 - [x] Adjust the global typography scale and mobile line-height rules across all routes while preserving 40~60대 readability.
 - [x] Verify desktop and mobile pages after the typography change, then save and deliver the revised checkpoint.
+- [x] Identify and prevent the mobile menu interaction that sends the page to the bottom instead of completing intended navigation.
+- [x] Reposition or hide the mobile floating help control so it does not overlap the Manus UI or obscure its arrow.
+- [x] Verify mobile navigation and viewport controls, then save and deliver the repair checkpoint.
