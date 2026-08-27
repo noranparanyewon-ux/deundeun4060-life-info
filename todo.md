@@ -99,3 +99,12 @@
 - [x] Verify desktop/mobile sharing controls, automated checks, and the deployed GitHub Pages feature-cover experience.
 - [x] Verify the deployed X and Facebook share actions open the expected active-article share URLs without navigating the current page.
 - [x] Verify native-share availability handling and the link-copy fallback path, then add regression coverage for active article title and canonical URL targets.
+- [x] Refine feature-cover headline, summary, share-label, and feedback wrapping for natural Korean word-level line breaks at desktop and mobile widths.
+- [x] Research the official Kakao share integration requirements and identify the required JavaScript key and allowed GitHub Pages domains without creating a duplicate connector.
+- [x] Do not add a KakaoTalk share action because the owner chose to exclude the integration.
+- [x] Verify responsive wrapping and automated checks after the typography update; do not perform a Kakao sharing release.
+- [x] Inspect the feature cover and sharing controls at compact and standard mobile widths for overflow, clipping, touch-target size, and readable Korean wrapping.
+- [x] Apply any required mobile layout corrections without changing the approved share actions or feature-slider behavior.
+- [ ] Verify the corrected layout with automated checks and cache-busted GitHub Pages mobile routes.
+- [x] Measure the mobile share-button tap targets at 320px and 390px, raise undersized controls to a 44px minimum, and record the result.
+- [ ] Recheck the final 44px share-button layout at both 320px and 390px, then verify a cache-busted GitHub Pages mobile route and record the result.

@@ -125,6 +125,11 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
     expect(homeSource).toContain('aria-label="특집 기사 링크 복사"');
     expect(homeSource).toContain('aria-label="X에서 특집 기사 공유"');
     expect(homeSource).toContain('aria-live="polite"');
+    expect(homeSource).not.toContain("대상 · 시기 · 담당 기관을<br />");
+    const styleSource = readFileSync(new URL("../index.css", import.meta.url), "utf8");
+    expect(styleSource).toContain(".webzine-cover__copy h1");
+    expect(styleSource).toContain("text-wrap: balance");
+    expect(styleSource).toContain(".feature-share__button { min-width: 44px; min-height: 44px; padding: 8px 10px; white-space: nowrap; }");
   });
 
   it("ships GitHub Pages routing and deployment without Cloudflare deployment secrets", () => {
