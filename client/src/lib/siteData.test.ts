@@ -92,6 +92,10 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
     expect(appSource).toContain('document.body.classList.toggle("mobile-menu-open", menuOpen)');
     expect(styleSource).toContain("body.mobile-menu-open { overflow: hidden; }");
     expect(styleSource).toContain(".main-nav--open { opacity: 1; pointer-events: auto;");
+    expect(styleSource).toContain(".main-nav a { padding-top: 29px; padding-bottom: 26px; font-size: 16px; font-weight: 650; }");
+    expect(styleSource).toContain(".mobile-menu-group a { display: grid; grid-template-columns: 29px minmax(0, 1fr) 20px; align-items: center; gap: 9px; min-height: 56px;");
+    expect(styleSource).toContain(".menu-toggle { min-width: 48px; min-height: 48px;");
+    expect(styleSource).toContain(".site-header { position: sticky; z-index: 70; backdrop-filter: none; }");
     expect(appSource).not.toContain('href="#"');
   });
 

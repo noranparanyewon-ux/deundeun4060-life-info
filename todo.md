@@ -110,3 +110,7 @@
 - [x] Recheck the final 44px share-button layout at both 320px and 390px, then verify a cache-busted GitHub Pages mobile route and record the result.
 - [x] Capture the cache-busted public GitHub Pages home at an actual 390px mobile viewport and confirm rendered 44px share controls with no clipping or horizontal overflow.
 - [x] Directly measure the live 390px mobile share-button rectangles and confirm each control is at least 44px in both dimensions.
+- [x] Increase desktop navigation labels, mobile header controls, and full-screen mobile menu labels to improve 40~60대 readability without overcrowding the header.
+- [x] Preserve working menu navigation, focus states, and touch targets while balancing the larger typography with brand and search elements.
+- [ ] Verify compact mobile, standard mobile, and desktop menu layout, automated checks, and the GitHub Pages release.
+- [x] Verify that the opened mobile menu panel is visually displayed above page content and resolve any fixed-panel stacking or visibility conflict before release.

@@ -658,9 +658,9 @@ body { line-height: 1.65; }
 
 /* Editorial Life Webzine: wide cover, named corners, restrained rules, generous reading rhythm. */
 .site-header { border-bottom-color: rgba(32, 51, 59, .14); background: rgba(255, 253, 248, .97); }
-.header-inner { min-height: 75px; }
-.main-nav { gap: 17px; }
-.main-nav a { font-size: 13px; }
+.header-inner { min-height: 82px; }
+.main-nav { gap: 20px; }
+.main-nav a { padding-top: 29px; padding-bottom: 26px; font-size: 16px; font-weight: 650; }
 .webzine-intro { border-bottom: 1px solid var(--line); background: #ece8dc; }
 .webzine-intro__inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; min-height: 42px; color: var(--ink-soft); font-size: 11px; letter-spacing: .05em; }
 .webzine-intro__inner span { color: var(--teal); font-weight: 800; letter-spacing: .11em; }
@@ -742,9 +742,9 @@ body { line-height: 1.65; }
 .webzine-footer-note a { display: inline-flex; align-items: center; gap: 6px; color: var(--teal); font-size: 12px; font-weight: 800; white-space: nowrap; }
 
 @media (max-width: 1080px) {
-  .header-inner { gap: 16px; }
-  .main-nav { gap: 11px; }
-  .main-nav a { font-size: 12px; }
+  .header-inner { min-height: 78px; gap: 16px; }
+  .main-nav { gap: 13px; }
+  .main-nav a { font-size: 14px; }
   .header-search { width: 145px; }
   .webzine-cover { grid-template-columns: 1fr 1fr; }
   .webzine-cover__copy { padding: 45px 35px 35px; }
@@ -813,28 +813,31 @@ body { line-height: 1.65; }
 @media (max-width: 640px) {
   body { font-size: 16px; line-height: 1.78; }
   body.mobile-menu-open { overflow: hidden; }
-  .site-header { position: sticky; z-index: 70; }
-  .header-inner { min-height: 70px; }
-  .main-nav { position: fixed; top: 70px; left: 0; right: 0; bottom: 0; display: block; padding: 0 17px 35px; overflow-y: auto; background: var(--paper); border: 0; box-shadow: 0 18px 32px rgba(32,51,59,.14); opacity: 0; pointer-events: none; transform: translateY(-10px); transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out); }
+  .site-header { position: sticky; z-index: 70; backdrop-filter: none; }
+  .header-inner { min-height: 74px; }
+  .site-mark__type strong { font-size: 22px; }
+  .site-mark__type span { font-size: 11px; }
+  .header-search { width: 44px; min-height: 44px; justify-content: center; }
+  .header-actions { gap: 7px; }
+  .main-nav { position: fixed; top: 74px; left: 0; right: 0; bottom: 0; display: block; padding: 0 17px 35px; overflow-y: auto; background: var(--paper); border: 0; box-shadow: 0 18px 32px rgba(32,51,59,.14); opacity: 0; pointer-events: none; transform: translateY(-10px); transition: opacity 180ms var(--ease-out), transform 180ms var(--ease-out); }
   .main-nav--open { opacity: 1; pointer-events: auto; transform: translateY(0); }
   .main-nav__primary { display: none; }
   .mobile-menu-panel { display: block; padding: 25px 0 42px; }
   .mobile-menu-panel__intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; padding-bottom: 23px; border-bottom: 2px solid var(--ink); }
   .mobile-menu-panel__intro > span { color: var(--teal); font-size: 11px; font-weight: 800; letter-spacing: .11em; }
-  .mobile-menu-panel__intro strong { font-family: "Noto Serif KR", serif; font-size: 25px; font-weight: 600; line-height: 1.38; letter-spacing: -.08em; text-align: right; }
+  .mobile-menu-panel__intro strong { font-family: "Noto Serif KR", serif; font-size: 27px; font-weight: 600; line-height: 1.38; letter-spacing: -.08em; text-align: right; }
   .mobile-menu-search { display: flex; align-items: center; gap: 10px; margin: 21px 0 29px; padding: 0 0 10px; border-bottom: 1px solid var(--ink); color: var(--teal); }
-  .mobile-menu-search input { min-width: 0; flex: 1; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 15px; }
+  .mobile-menu-search input { min-width: 0; flex: 1; border: 0; outline: 0; background: transparent; color: var(--ink); font-size: 16px; }
   .mobile-menu-search input::placeholder { color: var(--ink-soft); }
-  .mobile-menu-search button { padding: 6px 0 6px 9px; color: var(--teal); background: transparent; font-size: 14px; font-weight: 800; cursor: pointer; }
+  .mobile-menu-search button { min-height: 44px; padding: 6px 0 6px 12px; color: var(--teal); background: transparent; font-size: 15px; font-weight: 800; cursor: pointer; }
   .mobile-menu-group { display: flex; flex-direction: column; margin-top: 27px; border-top: 1px solid var(--line); }
   .mobile-menu-group > span { padding: 14px 0 8px; color: var(--ink-soft); font-size: 11px; font-weight: 800; letter-spacing: .09em; }
-  .mobile-menu-group a { display: grid; grid-template-columns: 29px minmax(0, 1fr) 18px; align-items: center; gap: 8px; min-height: 48px; padding: 10px 0; color: var(--ink); border-bottom: 1px solid var(--line); font-family: "Noto Serif KR", serif; font-size: 18px; letter-spacing: -.06em; }
+  .mobile-menu-group a { display: grid; grid-template-columns: 29px minmax(0, 1fr) 20px; align-items: center; gap: 9px; min-height: 56px; padding: 11px 0; color: var(--ink); border-bottom: 1px solid var(--line); font-family: "Noto Serif KR", serif; font-size: 19px; letter-spacing: -.06em; }
   .mobile-menu-group a i { color: var(--teal); font-family: "Noto Sans KR", sans-serif; font-size: 11px; font-style: normal; font-weight: 800; letter-spacing: .03em; }
   .mobile-menu-group a svg { justify-self: end; color: var(--ink-soft); }
   .mobile-menu-group--guide { margin-top: 34px; }
-  .mobile-menu-group--guide a { grid-template-columns: minmax(0, 1fr) 18px; font-family: "Noto Sans KR", sans-serif; font-size: 15px; }
-  .header-search { width: 35px; }
-  .menu-toggle { min-width: 42px; min-height: 42px; align-items: center; justify-content: center; }
+  .mobile-menu-group--guide a { grid-template-columns: minmax(0, 1fr) 20px; font-family: "Noto Sans KR", sans-serif; font-size: 17px; }
+  .menu-toggle { min-width: 48px; min-height: 48px; align-items: center; justify-content: center; }
   .eyebrow, .section-kicker, .category-label, .footer-label { font-size: 11px; }
   .article-meta, .magazine-card__meta, .magazine-card__foot { font-size: 11px; }
   .archive-row__copy h3, .search-row h3 { font-size: 18px; line-height: 1.48; }
