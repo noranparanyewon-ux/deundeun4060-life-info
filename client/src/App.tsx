@@ -1,7 +1,7 @@
 /* 생활 문서 아카이브 / 아이보리 종이 / 잉크 네이비 / 든든한 청록 / 편집 지면형 비대칭 레이아웃 */
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { Link, Route, Switch, useLocation } from "wouter";
-import { ChevronRight, Menu, Search, X } from "lucide-react";
+import { ChevronRight, MapPin, Menu, Search, X } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import ErrorBoundary from "./components/ErrorBoundary";
@@ -101,6 +101,22 @@ function Header() {
   const [location, setLocation] = useLocation();
   const [menuOpen, setMenuOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const currentPath = location.split("?")[0];
+
+  const mainMenuItems = [
+    { href: "/", label: "홈", number: "00" },
+    { href: "/category/welfare", label: "정부지원·복지", number: "01", articlePrefix: "/welfare/" },
+    { href: "/category/pension", label: "연금·노후준비", number: "02", articlePrefix: "/pension/" },
+    { href: "/category/health", label: "건강생활", number: "03", articlePrefix: "/health/" },
+    { href: "/category/saving", label: "생활비 절약", number: "04", articlePrefix: "/saving/" },
+    { href: "/about", label: "사이트 소개", infoRoute: true },
+  ];
+
+  const isMainMenuActive = (item: (typeof mainMenuItems)[number]) => {
+    if (item.href === "/") return currentPath === "/";
+    if (item.infoRoute) return ["/about", "/contact", "/privacy", "/disclaimer"].includes(currentPath);
+    return currentPath === item.href || Boolean(item.articlePrefix && currentPath.startsWith(item.articlePrefix));
+  };
 
   const onSearch = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -122,18 +138,17 @@ function Header() {
         <SiteMark />
         <nav className={`main-nav ${menuOpen ? "main-nav--open" : ""}`} aria-label="주요 메뉴">
           <div className="main-nav__primary">
-            <Link href="/" onClick={closeMenu} className={location === "/" ? "is-active" : ""}>홈</Link>
-            <Link href="/category/welfare" onClick={closeMenu} className={location === "/category/welfare" ? "is-active" : ""}>복지</Link>
-            <Link href="/category/pension" onClick={closeMenu} className={location === "/category/pension" ? "is-active" : ""}>연금</Link>
-            <Link href="/category/health" onClick={closeMenu} className={location === "/category/health" ? "is-active" : ""}>건강</Link>
-            <Link href="/category/saving" onClick={closeMenu} className={location === "/category/saving" ? "is-active" : ""}>생활비</Link>
-            <Link href="/about" onClick={closeMenu} className={location === "/about" ? "is-active" : ""}>사이트 소개</Link>
+            {mainMenuItems.map((item) => {
+              const isActive = isMainMenuActive(item);
+              const shortLabel = item.label === "정부지원·복지" ? "복지" : item.label === "연금·노후준비" ? "연금" : item.label === "건강생활" ? "건강" : item.label === "생활비 절약" ? "생활비" : item.label;
+              return <Link key={item.href} href={item.href} onClick={closeMenu} className={isActive ? "is-active" : ""} aria-current={isActive ? "page" : undefined}>{shortLabel}{isActive && <span className="main-nav__current-mark" aria-hidden="true"><MapPin size={13} /></span>}</Link>;
+            })}
           </div>
           <div className="mobile-menu-panel">
             <div className="mobile-menu-panel__intro"><span>빠른 메뉴</span><strong>필요한 정보를<br />바로 찾아보세요.</strong></div>
             <form className="mobile-menu-search" onSubmit={onSearch} role="search"><Search size={19} aria-hidden="true" /><input aria-label="메뉴에서 사이트 글 검색" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="예: 연금, 건강검진, 스마트폰" /><button type="submit">찾기</button></form>
-            <div className="mobile-menu-group"><span>주제별 정보</span><Link href="/" onClick={closeMenu}><i>00</i>홈 <ChevronRight size={17} /></Link><Link href="/category/welfare" onClick={closeMenu}><i>01</i>정부지원·복지 <ChevronRight size={17} /></Link><Link href="/category/pension" onClick={closeMenu}><i>02</i>연금·노후준비 <ChevronRight size={17} /></Link><Link href="/category/health" onClick={closeMenu}><i>03</i>건강생활 <ChevronRight size={17} /></Link><Link href="/category/saving" onClick={closeMenu}><i>04</i>생활비 절약 <ChevronRight size={17} /></Link></div>
-            <div className="mobile-menu-group mobile-menu-group--guide"><span>사이트 안내</span><Link href="/about" onClick={closeMenu}>우리가 정리하는 기준 <ChevronRight size={17} /></Link><Link href="/contact" onClick={closeMenu}>문의와 정정 요청 <ChevronRight size={17} /></Link><Link href="/privacy" onClick={closeMenu}>개인정보처리방침 <ChevronRight size={17} /></Link><Link href="/disclaimer" onClick={closeMenu}>이용안내 및 면책조항 <ChevronRight size={17} /></Link></div>
+            <div className="mobile-menu-group"><span>주제별 정보</span>{mainMenuItems.filter((item) => item.number).map((item) => { const isActive = isMainMenuActive(item); return <Link key={item.href} href={item.href} onClick={closeMenu} className={isActive ? "is-active" : ""} aria-current={isActive ? "page" : undefined}><i>{item.number}</i><b>{item.label}</b>{isActive && <span className="mobile-menu-current"><MapPin size={13} />현재</span>}<ChevronRight size={17} /></Link>; })}</div>
+            <div className="mobile-menu-group mobile-menu-group--guide"><span>사이트 안내</span>{mainMenuItems.filter((item) => item.infoRoute).map((item) => { const isActive = isMainMenuActive(item); return <Link key={item.href} href={item.href} onClick={closeMenu} className={isActive ? "is-active" : ""} aria-current={isActive ? "page" : undefined}><b>우리가 정리하는 기준</b>{isActive && <span className="mobile-menu-current"><MapPin size={13} />현재</span>}<ChevronRight size={17} /></Link>; })}<Link href="/contact" onClick={closeMenu}>문의와 정정 요청 <ChevronRight size={17} /></Link><Link href="/privacy" onClick={closeMenu}>개인정보처리방침 <ChevronRight size={17} /></Link><Link href="/disclaimer" onClick={closeMenu}>이용안내 및 면책조항 <ChevronRight size={17} /></Link></div>
           </div>
         </nav>
         <div className="header-actions">

@@ -114,3 +114,6 @@
 - [x] Preserve working menu navigation, focus states, and touch targets while balancing the larger typography with brand and search elements.
 - [x] Verify compact mobile, standard mobile, and desktop menu layout, automated checks, and the GitHub Pages release.
 - [x] Verify that the opened mobile menu panel is visually displayed above page content and resolve any fixed-panel stacking or visibility conflict before release.
+- [x] Add a clear current-page indicator to desktop and mobile navigation using a visible icon, supporting text treatment, and `aria-current` semantics.
+- [x] Ensure category article routes, category archive routes, home, and site-information routes each map to the appropriate active primary menu item.
+- [ ] Verify active-menu emphasis at desktop and mobile widths, run regression tests and the GitHub Pages build, then confirm the public deployment.
