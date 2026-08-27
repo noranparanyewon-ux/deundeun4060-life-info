@@ -122,5 +122,5 @@
 - [x] Verify contrast, desktop and mobile theme distinction, regression tests, GitHub Pages build, and public deployment.
 - [x] Review the representative editorial illustration palette for all four categories against the established category accent tokens.
 - [x] Adjust each category's representative editorial illustration tones to harmonize subtly with welfare, pension, health, and saving themes while preserving the original illustration content.
-- [ ] Confirm the GitHub Pages release after the adjusted illustration tones have been deployed, then record the public verification result.
+- [x] Confirm the GitHub Pages release after the adjusted illustration tones have been deployed, then record the public verification result.
 - [x] Calculate contrast for each category accent against cream and white interactive surfaces, adjust any insufficient text token, and record the validation result before release.
