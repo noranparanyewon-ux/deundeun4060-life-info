@@ -110,10 +110,15 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
   it("creates base-path-safe feature share URLs and exposes accessible share actions", () => {
     const articleUrl = buildFeatureShareUrl("/welfare/basic-livelihood-living-allowance", "https://example.test", "/deundeun4060-life-info/");
     expect(articleUrl).toBe("https://example.test/deundeun4060-life-info/welfare/basic-livelihood-living-allowance");
-    const targets = buildFeatureShareTargets("특집 기사", articleUrl);
-    expect(targets.x).toContain("twitter.com/intent/tweet");
-    expect(targets.facebook).toContain("facebook.com/sharer/sharer.php");
-    expect(targets.x).toContain(encodeURIComponent(articleUrl));
+    for (const article of articles) {
+      const activeArticleUrl = buildFeatureShareUrl(article.canonicalPath, "https://example.test", "/deundeun4060-life-info/");
+      const targets = buildFeatureShareTargets(article.title, activeArticleUrl);
+      expect(targets.x).toContain("twitter.com/intent/tweet");
+      expect(targets.facebook).toContain("facebook.com/sharer/sharer.php");
+      expect(decodeURIComponent(targets.x)).toContain(article.title);
+      expect(targets.x).toContain(encodeURIComponent(activeArticleUrl));
+      expect(targets.facebook).toContain(encodeURIComponent(activeArticleUrl));
+    }
     const homeSource = readFileSync(new URL("../pages/Home.tsx", import.meta.url), "utf8");
     expect(homeSource).toContain("navigator.share");
     expect(homeSource).toContain("navigator.clipboard?.writeText");
