@@ -119,5 +119,5 @@
 - [x] Verify active-menu emphasis at desktop and mobile widths, run regression tests and the GitHub Pages build, then confirm the public deployment.
 - [x] Define distinct, accessible category color tokens for welfare, pension, health, and saving while preserving the site's cream editorial base.
 - [x] Apply the active category color consistently to archive headers, article labels, current-menu indicators, links, and contextual accents on category and article routes.
-- [ ] Verify contrast, desktop and mobile theme distinction, regression tests, GitHub Pages build, and public deployment.
+- [x] Verify contrast, desktop and mobile theme distinction, regression tests, GitHub Pages build, and public deployment.
 - [x] Calculate contrast for each category accent against cream and white interactive surfaces, adjust any insufficient text token, and record the validation result before release.
