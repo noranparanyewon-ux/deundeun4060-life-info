@@ -105,6 +105,8 @@
 - [x] Verify responsive wrapping and automated checks after the typography update; do not perform a Kakao sharing release.
 - [x] Inspect the feature cover and sharing controls at compact and standard mobile widths for overflow, clipping, touch-target size, and readable Korean wrapping.
 - [x] Apply any required mobile layout corrections without changing the approved share actions or feature-slider behavior.
-- [ ] Verify the corrected layout with automated checks and cache-busted GitHub Pages mobile routes.
+- [x] Verify the corrected layout with automated checks and cache-busted GitHub Pages mobile routes.
 - [x] Measure the mobile share-button tap targets at 320px and 390px, raise undersized controls to a 44px minimum, and record the result.
-- [ ] Recheck the final 44px share-button layout at both 320px and 390px, then verify a cache-busted GitHub Pages mobile route and record the result.
+- [x] Recheck the final 44px share-button layout at both 320px and 390px, then verify a cache-busted GitHub Pages mobile route and record the result.
+- [x] Capture the cache-busted public GitHub Pages home at an actual 390px mobile viewport and confirm rendered 44px share controls with no clipping or horizontal overflow.
+- [x] Directly measure the live 390px mobile share-button rectangles and confirm each control is at least 44px in both dimensions.
