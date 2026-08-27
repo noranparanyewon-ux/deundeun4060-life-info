@@ -11,6 +11,8 @@ const projectRoot = fileURLToPath(new URL("../../../", import.meta.url));
 describe("든든한 4060 생활정보 콘텐츠 구조", () => {
   it("uses four focused categories and exposes only the 12 reviewed launch articles", () => {
     expect(categories.map((category) => category.slug)).toEqual(["welfare", "pension", "health", "saving"]);
+    expect(categories.map((category) => category.accent)).toEqual(["#0B6E67", "#8C5A11", "#A94D3D", "#2D5966"]);
+    expect(new Set(categories.map((category) => category.accent)).size).toBe(4);
     expect(articles).toHaveLength(12);
     const imageBasePath = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
@@ -29,6 +31,17 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
       expect(article.source.href).toMatch(/^https?:\/\//);
       expect(article.verification.status).toBe("official-source-reviewed");
     }
+  });
+
+  it("uses category-scoped accents for routes and the active monthly feature", () => {
+    const appSource = readFileSync(new URL("../App.tsx", import.meta.url), "utf8");
+    const homeSource = readFileSync(new URL("../pages/Home.tsx", import.meta.url), "utf8");
+    const styleSource = readFileSync(new URL("../index.css", import.meta.url), "utf8");
+    expect(appSource).toContain('"--route-accent": routeCategory.accent');
+    expect(homeSource).toContain('"--feature-accent": getCategory(activeStory.category)?.accent');
+    expect(styleSource).toContain("var(--route-accent, var(--teal))");
+    expect(styleSource).toContain("var(--feature-accent, var(--teal))");
+    expect(styleSource).toContain("Category themes: one restrained accent travels with each archive, article, and active monthly feature.");
   });
 
   it("keeps the 28 future records out of the browser payload and records Korea-time release slots in UTC", () => {

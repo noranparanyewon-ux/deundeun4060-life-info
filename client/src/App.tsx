@@ -1,5 +1,5 @@
 /* 생활 문서 아카이브 / 아이보리 종이 / 잉크 네이비 / 든든한 청록 / 편집 지면형 비대칭 레이아웃 */
-import { useEffect, useState, type FormEvent, type ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type FormEvent, type ReactNode } from "react";
 import { Link, Route, Switch, useLocation } from "wouter";
 import { ChevronRight, MapPin, Menu, Search, X } from "lucide-react";
 import { Toaster } from "@/components/ui/sonner";
@@ -13,7 +13,7 @@ import InfoPage from "./pages/InfoPage";
 import SearchPage from "./pages/SearchPage";
 import LegacyDigitalPage from "./pages/LegacyDigitalPage";
 import NotFound from "./pages/NotFound";
-import { siteDescription, siteName } from "./lib/siteData";
+import { categories, siteDescription, siteName } from "./lib/siteData";
 
 const pageMeta: Record<string, { title: string; description: string }> = {
   "/": { title: siteName, description: siteDescription },
@@ -198,8 +198,12 @@ function Footer() {
 }
 
 function Shell({ children }: { children: ReactNode }) {
+  const [location] = useLocation();
+  const currentPath = location.split("?")[0];
+  const routeCategory = categories.find((category) => currentPath === `/category/${category.slug}` || currentPath.startsWith(`/${category.slug}/`));
+
   return (
-    <div className="app-shell">
+    <div className={`app-shell${routeCategory ? ` app-shell--${routeCategory.slug}` : ""}`} style={routeCategory ? { "--route-accent": routeCategory.accent } as CSSProperties : undefined}>
       <Header />
       <main>{children}</main>
       <Footer />

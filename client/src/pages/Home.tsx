@@ -91,7 +91,7 @@ function FeaturedStorySlider() {
     swipeStartX.current = null;
   };
 
-  return <section className="webzine-feature container" aria-labelledby="feature-title">
+  return <section className="webzine-feature container" style={{ "--feature-accent": getCategory(activeStory.category)?.accent } as CSSProperties} aria-labelledby="feature-title">
     <div className="webzine-feature__label"><span>이번 달 대표 특집</span><span>MONTHLY ISSUE · {String(activeIndex + 1).padStart(2, "0")}</span></div>
     <div className="featured-slider" role="region" aria-roledescription="carousel" aria-label="이달의 든든한 특집 스토리" tabIndex={0} onKeyDown={(event) => { if (event.key === "ArrowLeft") moveTo(activeIndex - 1); if (event.key === "ArrowRight") moveTo(activeIndex + 1); }} onTouchStart={(event) => { swipeStartX.current = event.touches[0]?.clientX ?? null; }} onTouchEnd={(event) => onSwipeEnd(event.changedTouches[0]?.clientX ?? 0)}>
       <Link href={activeStory.canonicalPath} className="webzine-cover" aria-label={`${activeStory.title} 읽기`}>

@@ -3,25 +3,25 @@
     "welfare": {
       "label": "정부지원·복지",
       "eyebrow": "생활 표지 01",
-      "accent": "#0F766E",
+      "accent": "#0B6E67",
       "description": "지원 제도와 신청 기준을 공식 안내로 확인합니다."
     },
     "pension": {
       "label": "연금·노후준비",
       "eyebrow": "생활 표지 02",
-      "accent": "#B7791F",
+      "accent": "#8C5A11",
       "description": "연금과 노후 준비의 조건을 차분히 살펴봅니다."
     },
     "health": {
       "label": "건강생활",
       "eyebrow": "생활 표지 03",
-      "accent": "#C56854",
+      "accent": "#A94D3D",
       "description": "건강 제도와 의료 이용 전 확인할 내용을 정리합니다."
     },
     "saving": {
       "label": "생활비 절약",
       "eyebrow": "생활 표지 04",
-      "accent": "#466B76",
+      "accent": "#2D5966",
       "description": "공공요금과 생활비 절감 제도를 확인합니다."
     }
   },
