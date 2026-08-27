@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { articles, categories, getArticle, getCategory, getLegacyDigitalArticle, withSiteBasePath } from "./siteData";
+import { buildFeatureShareTargets, buildFeatureShareUrl } from "./featureShare";
 
 const manifest = JSON.parse(readFileSync(new URL("../../../content/article-manifest.json", import.meta.url), "utf8"));
 const projectRoot = fileURLToPath(new URL("../../../", import.meta.url));
@@ -104,6 +105,21 @@ describe("든든한 4060 생활정보 콘텐츠 구조", () => {
     expect(homeSource).toContain('event.key === "ArrowRight"');
     expect(homeSource).toContain('aria-label="이전 특집 기사"');
     expect(homeSource).toContain('aria-label="다음 특집 기사"');
+  });
+
+  it("creates base-path-safe feature share URLs and exposes accessible share actions", () => {
+    const articleUrl = buildFeatureShareUrl("/welfare/basic-livelihood-living-allowance", "https://example.test", "/deundeun4060-life-info/");
+    expect(articleUrl).toBe("https://example.test/deundeun4060-life-info/welfare/basic-livelihood-living-allowance");
+    const targets = buildFeatureShareTargets("특집 기사", articleUrl);
+    expect(targets.x).toContain("twitter.com/intent/tweet");
+    expect(targets.facebook).toContain("facebook.com/sharer/sharer.php");
+    expect(targets.x).toContain(encodeURIComponent(articleUrl));
+    const homeSource = readFileSync(new URL("../pages/Home.tsx", import.meta.url), "utf8");
+    expect(homeSource).toContain("navigator.share");
+    expect(homeSource).toContain("navigator.clipboard?.writeText");
+    expect(homeSource).toContain('aria-label="특집 기사 링크 복사"');
+    expect(homeSource).toContain('aria-label="X에서 특집 기사 공유"');
+    expect(homeSource).toContain('aria-live="polite"');
   });
 
   it("ships GitHub Pages routing and deployment without Cloudflare deployment secrets", () => {

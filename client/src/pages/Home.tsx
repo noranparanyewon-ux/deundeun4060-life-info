@@ -1,7 +1,8 @@
 /* Editorial Life Webzine / 크림 지면 / 세리프 헤드라인 / 코너형 매거진 그리드 */
 import { useRef, useState, type CSSProperties } from "react";
-import { ArrowRight, ChevronLeft, ChevronRight, Clock3, Compass, FileText, Sparkles } from "lucide-react";
+import { ArrowRight, Check, ChevronLeft, ChevronRight, Clock3, Compass, Copy, FileText, Forward, Link2, Share2, Sparkles } from "lucide-react";
 import { Link } from "wouter";
+import { buildFeatureShareTargets, buildFeatureShareUrl, type FeatureShareTarget } from "../lib/featureShare";
 import { articles, getCategory } from "../lib/siteData";
 
 const featured = articles[0]!;
@@ -36,9 +37,53 @@ function CornerHead({ issue, title, description, href }: { issue: string; title:
 
 function FeaturedStorySlider() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [shareMessage, setShareMessage] = useState("");
   const swipeStartX = useRef<number | null>(null);
   const activeStory = featureStories[activeIndex];
-  const moveTo = (index: number) => setActiveIndex((index + featureStories.length) % featureStories.length);
+  const moveTo = (index: number) => {
+    setActiveIndex((index + featureStories.length) % featureStories.length);
+    setShareMessage("");
+  };
+  const getShareUrl = () => buildFeatureShareUrl(activeStory.canonicalPath, window.location.origin, import.meta.env.BASE_URL);
+  const copyFeatureLink = async () => {
+    const shareUrl = getShareUrl();
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(shareUrl);
+      } else {
+        const textArea = document.createElement("textarea");
+        textArea.value = shareUrl;
+        textArea.setAttribute("readonly", "");
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.select();
+        const copied = document.execCommand("copy");
+        textArea.remove();
+        if (!copied) throw new Error("Clipboard fallback failed");
+      }
+      setShareMessage("특집 기사 링크를 복사했습니다.");
+    } catch {
+      setShareMessage("링크를 복사하지 못했습니다. 주소창에서 직접 복사해 주세요.");
+    }
+  };
+  const shareWithDevice = async () => {
+    const shareUrl = getShareUrl();
+    if (!navigator.share) {
+      await copyFeatureLink();
+      return;
+    }
+    try {
+      await navigator.share({ title: activeStory.title, text: activeStory.excerpt, url: shareUrl });
+      setShareMessage("공유 창을 열었습니다.");
+    } catch {
+      // The browser also reports a normal user cancellation as an exception, so it needs no error message.
+    }
+  };
+  const shareToSocial = (target: FeatureShareTarget) => {
+    const targets = buildFeatureShareTargets(activeStory.title, getShareUrl());
+    window.open(targets[target], "_blank", "noopener,noreferrer");
+  };
   const onSwipeEnd = (clientX: number) => {
     if (swipeStartX.current === null) return;
     const distance = clientX - swipeStartX.current;
@@ -55,7 +100,7 @@ function FeaturedStorySlider() {
         <div className="webzine-cover__copy"><div className="webzine-cover__copy-top"><span className="webzine-cover__eyebrow">이번 달, 먼저 읽을 생활 안내</span><strong>{String(activeIndex + 1).padStart(2, "0")}</strong></div><CategoryLabel slug={activeStory.category} /><span className="webzine-cover__status">업데이트 {activeStory.updated} · 공식 안내 확인</span><h1 id="feature-title">{activeStory.title}</h1><p>{activeStory.excerpt}</p><div className="webzine-cover__action"><span>대상 · 시기 · 담당 기관을<br />한눈에 확인하세요</span><strong>특집 읽기 <ArrowRight size={18} /></strong></div></div>
       </Link>
       <div className="featured-slider__controls"><button type="button" onClick={() => moveTo(activeIndex - 1)} aria-label="이전 특집 기사"><ChevronLeft size={20} /></button><span aria-live="polite">{activeIndex + 1} / {featureStories.length}</span><button type="button" onClick={() => moveTo(activeIndex + 1)} aria-label="다음 특집 기사"><ChevronRight size={20} /></button></div>
-      <div className="featured-slider__dots" role="tablist" aria-label="특집 기사 선택">{featureStories.map((story, index) => <button key={story.slug} type="button" className={index === activeIndex ? "is-active" : ""} onClick={() => moveTo(index)} aria-label={`${index + 1}번 특집: ${story.title}`} aria-selected={index === activeIndex} role="tab" />)}</div>
+      <div className="featured-slider__bottom"><div className="featured-slider__dots" role="tablist" aria-label="특집 기사 선택">{featureStories.map((story, index) => <button key={story.slug} type="button" className={index === activeIndex ? "is-active" : ""} onClick={() => moveTo(index)} aria-label={`${index + 1}번 특집: ${story.title}`} aria-selected={index === activeIndex} role="tab" />)}</div><div className="feature-share" role="group" aria-label={`${activeStory.title} 공유`}><span className="feature-share__label">이 특집 공유</span><div className="feature-share__actions"><button className="feature-share__button" type="button" onClick={shareWithDevice} aria-label="기기의 공유 메뉴 열기"><Share2 size={15} /><span>공유</span></button><button className="feature-share__button" type="button" onClick={copyFeatureLink} aria-label="특집 기사 링크 복사">{shareMessage.startsWith("특집 기사") ? <Check size={15} /> : <Link2 size={15} />}<span>{shareMessage.startsWith("특집 기사") ? "복사됨" : "링크"}</span></button><button className="feature-share__button feature-share__button--social" type="button" onClick={() => shareToSocial("x")} aria-label="X에서 특집 기사 공유"><span aria-hidden="true">X</span></button><button className="feature-share__button feature-share__button--social" type="button" onClick={() => shareToSocial("facebook")} aria-label="Facebook에서 특집 기사 공유"><span aria-hidden="true">f</span></button></div><span className="feature-share__status" aria-live="polite">{shareMessage}</span></div></div>
     </div>
   </section>;
 }

@@ -94,3 +94,6 @@
 - [x] Redesign the monthly feature cover with a stronger editorial hierarchy, distinct issue treatment, and a more prominent article entry point.
 - [x] Preserve slider controls, keyboard and swipe behavior, semantic labels, and source-verification cues in the redesigned feature cover.
 - [x] Verify the new feature cover on desktop and mobile, run type/test/build checks, and confirm the GitHub Pages release.
+- [x] Add feature-cover share actions for link copying and selected social platforms using the active article URL and title.
+- [x] Provide accessible success feedback and a dependable clipboard fallback without interrupting slider controls or article navigation.
+- [ ] Verify desktop/mobile sharing controls, automated checks, and the deployed GitHub Pages feature-cover experience.
